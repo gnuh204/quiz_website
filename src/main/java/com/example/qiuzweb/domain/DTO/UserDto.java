@@ -1,8 +1,8 @@
 package com.example.qiuzweb.domain.Dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import com.example.qiuzweb.service.validator.PasswordMatches;
 

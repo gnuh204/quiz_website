@@ -2,8 +2,9 @@ package com.example.qiuzweb.service.validator;
 
 import java.lang.annotation.*;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
 
 @Documented
 @Constraint(validatedBy = PasswordMatchesValidator.class)
