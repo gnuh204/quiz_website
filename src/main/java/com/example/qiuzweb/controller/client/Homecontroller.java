@@ -16,4 +16,13 @@ public class Homecontroller {
     public String login() {
         return "client/login"; 
     }
+     @GetMapping("/signup")
+    public String signup() {
+        return "client/signup"; 
+    }
+    @GetMapping("/forgotpassword")
+    public String forgotpassword() {
+        return "client/forgotpassword"; 
+    }
+    
 }
