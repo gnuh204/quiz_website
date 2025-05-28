@@ -14,6 +14,14 @@ public class UserService {
         this.userResitory = userResitory;
     }
 
+    public boolean usernameexists(String username){
+         return userResitory.findByUsername(username).isPresent();
+    }
+
+    public boolean emailexists(String email){
+        return userResitory.findByEmail(email).isPresent();
+    }
+
     public User registerUser(UserDTO userDTO){
         User user = new User();
         user.setUsername(userDTO.getUsername());
