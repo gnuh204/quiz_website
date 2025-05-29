@@ -41,11 +41,20 @@ public class Usercontroller {
     }
     @PostMapping("/register")
     public String processRegister( @ModelAttribute("user") @Valid UserDTO userDTO, BindingResult result, Model model) {
+        
         if (result.hasErrors()) {
         return "client/signup";
-    }
-    userService.registerUser(userDTO); 
-    return "redirect:/login";
+            }
+        if(userService.usernameexists(userDTO.getUsername())){
+            result.rejectValue("username", null, "Tên đã tồn tại");
+            return "client/signup";
+        }
+         if(userService.emailexists(userDTO.getEmail())){
+            result.rejectValue("email", null,"email đã tồn tại");
+           return "client/signup";
+        }
+        userService.registerUser(userDTO); 
+        return "redirect:/login";
     }
     
     @GetMapping("/forgotpassword")
