@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import com.example.qiuzweb.domain.User;
 import com.example.qiuzweb.service.validator.PasswordMatches;
 
 @PasswordMatches
@@ -19,9 +20,15 @@ public class UserDTO {
     @Size(min = 6, message = "Mật khẩu phải có ít nhất 6 ký tự")
     private String password;
 
-    @NotBlank(message = "Xác nhận mật khẩu không được để trống")
+    // Xác nhận mật khẩu chỉ bắt buộc nếu là USER
+    @NotBlank(message = "Xác nhận mật khẩu không được để trống", groups = NormalUser.class)
     private String confirmPassword;
 
+    // Thêm role để xác định là ADMIN hay USER
+    // private String role = "USER"; // mặc định là USER
+    // private String role;
+private User.Role role;
+    // Getters và Setters
     public String getUsername() {
         return username;
     }
@@ -54,5 +61,19 @@ public class UserDTO {
         this.confirmPassword = confirmPassword;
     }
 
-    
+    // public String getRole() {
+    //     return role;
+    // }
+
+    // public void setRole(String role) {
+    //     this.role = role;
+    // }
+    //  public interface NormalUser {}
+    public User.Role getRole() {
+    return role;
+}
+
+public void setRole(User.Role role) {
+    this.role = role;
+}
 }

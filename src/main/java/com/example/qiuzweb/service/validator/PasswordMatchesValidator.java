@@ -15,12 +15,22 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
             return false;
         }
 
+        //  // Nếu là admin thì bỏ qua xác nhận mật khẩu
+        // if ("ADMIN".equalsIgnoreCase(userDTO.getRole())) {
+        //     return true;
+        // }
+
+        // // Nếu là user thì cần so sánh password và confirmPassword
+        // if (userDTO.getConfirmPassword() == null) {
+        //     return false;
+        // }
+
         boolean matched = userDTO.getPassword().equals(userDTO.getConfirmPassword());
 
         if (!matched) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
-                   .addPropertyNode("confirmPassword") // Gắn lỗi vào đúng field
+            context.buildConstraintViolationWithTemplate("Xác nhận mật khẩu không khớp")
+                   .addPropertyNode("confirmPassword")
                    .addConstraintViolation();
         }
 
