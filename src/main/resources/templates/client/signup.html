@@ -63,11 +63,6 @@
             <p th:each="err : ${#fields.errors('role')}" th:text="${err}"></p>
           </div>
         </div>
-
-        <!-- Nếu không phải admin thì gửi hidden role là ROLE_USER -->
-        <input type="hidden" th:field="*{role}" th:if="${!isAdmin}" value="ROLE_USER" />
-
-        <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
       </form>
 
       <div class="text-center my-3">

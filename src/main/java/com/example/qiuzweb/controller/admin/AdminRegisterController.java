@@ -20,12 +20,12 @@ public class AdminRegisterController {
 
     @GetMapping
     public String showRegisterForm(Model model) {
-        model.addAttribute("userDTO", new UserDTO());
-        return "admin-register";
+        model.addAttribute("adminuser", new UserDTO());
+        return "admin/adminsignup";
     }
 
     @PostMapping
-    public String registerAdmin(@ModelAttribute("userDTO") UserDTO dto) {
+    public String registerAdmin(@ModelAttribute("adminuser") UserDTO dto) {
         userService.registerUserAdmin(dto);
         return "redirect:/login";
     }

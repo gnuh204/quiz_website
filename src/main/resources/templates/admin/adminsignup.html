@@ -14,7 +14,7 @@
       <div class="bg-white p-4 rounded-4 shadow-sm">
         <h3 class="text-center mb-4 text-primary">Tạo tài khoản Admin</h3>
 
-        <form th:action="@{/admin/register}" th:object="${admin}" method="post">
+        <form th:action="@{/admin/register}" th:object="${adminuser}" method="post">
           <!-- Hiển thị lỗi tổng quát nếu có -->
           <div th:if="${#fields.hasGlobalErrors()}" class="text-danger">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
