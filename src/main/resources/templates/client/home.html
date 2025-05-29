@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -164,7 +165,7 @@
       <!-- Content grid -->
       <section class="flex-grow-1 overflow-auto p-4 bg-light">
         <!-- Lồng nội dung Infor.html bằng Thymeleaf fragment -->
-        <div th:insert="Infor :: profileContent"></div>
+        <div th:insert="client/InforFragment :: profileContent"></div>
       </section>
     </main>
   </div>
