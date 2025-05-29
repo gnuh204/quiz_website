@@ -142,7 +142,7 @@
               <div class="text-secondary small">khanh11122004@gmail.com</div>
             </li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item d-flex align-items-center gap-2" href="Infor.html"><i class="fas fa-user"></i> Xem hồ sơ</a></li>
+            <li><a class="dropdown-item d-flex align-items-center gap-2" href="InforFragment.html"><i class="fas fa-user"></i> Xem hồ sơ</a></li>
             <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="fas fa-cog"></i> Cài đặt</a></li>
             <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
           </ul>
@@ -163,31 +163,8 @@
       </section>
       <!-- Content grid -->
       <section class="flex-grow-1 overflow-auto p-4 bg-light">
-        <h3 class="text-xs font-semibold mb-3 select-none">↝ Hoạt động thịnh hành</h3>
-        <ul class="row row-cols-2 row-cols-sm-3 row-cols-md-6 g-3 list-unstyled mx-auto" style="max-width: 1200px;">
-          <li class="col">
-            <div class="bg-white rounded border p-3 d-flex flex-column align-items-center text-center cursor-pointer select-none h-100">
-              <img alt="Numbers" class="mb-2 illustration-img" src="https://storage.googleapis.com/a1aa/image/78ca8814-d31f-43b5-c3c9-c223a894fa0c.jpg"/>
-              <span class="font-semibold text-xs mb-1">Numbers</span>
-              <span class="text-9px text-secondary">779.3K các hoạt động</span>
-            </div>
-          </li>
-          <li class="col">
-            <div class="bg-white rounded border p-3 d-flex flex-column text-xs cursor-pointer select-none h-100">
-              <img alt="Concepts in whole numbers" class="mb-1 rounded illustration-img" src="https://storage.googleapis.com/a1aa/image/1cce480f-4277-403a-fc7a-94a8488deeac.jpg"/>
-              <span class="font-semibold mb-1">Concepts in whole numbers</span>
-              <span class="text-9px text-secondary">1.4K các hoạt động</span>
-            </div>
-          </li>
-          <li class="col">
-            <div class="bg-white rounded border p-3 d-flex flex-column text-xs cursor-pointer select-none h-100">
-              <img alt="Operations on whole numbers" class="mb-1 rounded illustration-img" src="https://storage.googleapis.com/a1aa/image/1cce480f-4277-403a-fc7a-94a8488deeac.jpg"/>
-              <span class="font-semibold mb-1">Operations on whole numbers</span>
-              <span class="text-9px text-secondary">5K các hoạt động</span>
-            </div>
-          </li>
-          <!-- thêm  -->
-        </ul>
+        <!-- Lồng nội dung Infor.html bằng Thymeleaf fragment -->
+        <div th:insert="Infor :: profileContent"></div>
       </section>
     </main>
   </div>
