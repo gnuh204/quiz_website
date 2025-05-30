@@ -60,6 +60,6 @@ public class Usercontroller {
     @GetMapping("/forgotpassword")
     public String forgotpassword() {
         return "client/forgotpassword"; 
-    }
-    
+   
+}
 }
