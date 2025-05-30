@@ -1,0 +1,78 @@
+body { font-family: 'Inter', sans-serif; }
+    .sidebar { min-width: 220px; max-width: 220px; }
+    .sidebar .nav-link.active { color: #7c3aed; font-weight: 600; }
+    .sidebar .nav-link { color: #6b7280; }
+    .sidebar .nav-link:hover { color: #7c3aed; }
+    .tab-active { color: #7c3aed !important; }
+    .tab-underline { display: none !important; }
+    .bg-purple-50 { background: #f5f3ff; }
+    .bg-purple-700 { background: #7c3aed !important; }
+    .bg-yellow-400 { background: #facc15 !important; }
+    .bg-yellow-500 { background: #eab308 !important; }
+    .text-purple-700 { color: #7c3aed !important; }
+    .rounded-full { border-radius: 9999px !important; }
+    .select-none { user-select: none; }
+    .text-9px { font-size: 9px; }
+    .text-xs { font-size: 0.75rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-lg { font-size: 1.125rem; }
+    .font-semibold { font-weight: 600; }
+    .font-extrabold { font-weight: 800; }
+    .object-contain { object-fit: contain; }
+    .illustration-img {
+      width: 80px !important;
+      height: 80px !important;
+      object-fit: contain;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background: #f5f5f5;
+      border-radius: 12px;
+    }
+    .tab-nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 90px;
+      position: relative;
+      padding-bottom: 2px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .tab-nav-link:not(.tab-active) .tab-underline {
+      display: none;
+    }
+    .tab-nav-link:hover,
+    .tab-nav-link:focus {
+      color: #7c3aed !important;
+      text-decoration: none;
+    }
+    /* Cố định kích thước dropdown menu */
+    .dropdown-menu.dropdown-menu-end {
+      min-width: 220px;
+      max-width: 240px;
+      padding: 10px 0;
+      box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.12);
+    }
+    .dropdown-menu .dropdown-item {
+      padding: 8px 20px;
+      font-size: 0.95rem;
+    }
+    .user-dropdown-menu {
+      min-width: 260px;
+      max-width: 300px;
+      border-radius: 14px;
+      box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.13);
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .user-dropdown-menu .dropdown-item {
+      font-size: 1rem;
+      padding: 10px 24px;
+    }
+    .user-dropdown-menu .dropdown-divider {
+      margin: 0.5rem 0;
+    }

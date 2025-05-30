@@ -1,0 +1,28 @@
+<div th:fragment="sidebar">
+  <aside class="sidebar d-flex flex-column border-end bg-white">
+    <div class="d-flex align-items-center gap-1 px-4 py-3">
+      <h1 class="font-extrabold fs-3 text-purple-700 select-none mb-0">Quizizz</h1>
+      <span class="text-xs font-semibold text-secondary pt-1 select-none">STUDENT</span>
+    </div>
+    <button class="mx-4 mb-3 btn bg-purple-700 text-white text-sm font-semibold py-2 px-3 rounded mb-2" type="button">
+      + Tạo mới
+    </button>
+    <nav class="nav flex-column px-4 mb-2">
+      <a class="nav-link active d-flex align-items-center gap-2" href="#">
+        <i class="fas fa-home"></i> Khám phá
+      </a>
+      <a class="nav-link d-flex align-items-center gap-2" href="#">
+        <i class="fas fa-book"></i> Thư viện
+      </a>
+      <a class="nav-link d-flex align-items-center gap-2" href="#">
+        <i class="fas fa-chart-bar"></i> Báo cáo
+      </a>
+    </nav>
+    <div class="mt-auto px-4 py-2 text-xs text-secondary select-none">
+      0/20 hoạt động được tạo ra
+    </div>
+    <button class="mx-4 mb-4 btn bg-yellow-400 text-black text-xs font-semibold py-2 px-3 rounded d-flex align-items-center" type="button">
+      <i class="fas fa-lock me-1"></i> Nâng cấp
+    </button>
+  </aside>
+</div>

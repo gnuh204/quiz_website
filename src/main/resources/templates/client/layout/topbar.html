@@ -1,0 +1,14 @@
+<div th:fragment="topbar">
+  <header class="d-flex align-items-center justify-content-end gap-2 px-4 py-2 border-bottom bg-white text-xs text-secondary select-none">
+    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1" type="button">
+      <i class="fas fa-bell"></i>
+    </button>
+    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1" type="button">
+      Nhập mã
+    </button>
+    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1" type="button">
+      <i class="fas fa-question-circle"></i> Nhận trợ giúp
+    </button>
+    <div th:insert="client/dropdownAvatar :: dropdownUser"></div>
+  </header>
+</div>
