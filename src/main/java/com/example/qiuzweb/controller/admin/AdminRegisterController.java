@@ -4,9 +4,11 @@ import com.example.qiuzweb.domain.Dto.UserDTO;
 
 import com.example.qiuzweb.service.UserService;
 
+import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -25,7 +27,18 @@ public class AdminRegisterController {
     }
 
     @PostMapping
-    public String registerAdmin(@ModelAttribute("adminuser") UserDTO dto) {
+    public String registerAdmin(@ModelAttribute("adminuser") @Valid UserDTO dto, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+        return "admin/adminsignup";
+            }
+        if(userService.usernameexists(dto.getUsername())){
+            result.rejectValue("username", null, "Tên đã tồn tại");
+            return "admin/adminsignup";
+        }
+        if(userService.emailexists(dto.getEmail())){
+            result.rejectValue("email", null,"email đã tồn tại");
+           return "admin/adminsignup";
+        }
         userService.registerUserAdmin(dto);
         return "redirect:/login";
     }

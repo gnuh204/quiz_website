@@ -51,18 +51,7 @@
           </div>
         </div>
 
-        <!-- Vai trò: chỉ hiện nếu là admin -->
-        <div class="mb-3" th:if="${isAdmin}">
-          <label for="role" class="form-label">Vai trò</label>
-          <select id="role" th:field="*{role}" class="form-select" required>
-            <option value="" disabled selected>-- Chọn vai trò --</option>
-            <option value="ROLE_ADMIN">Admin</option>
-            <option value="ROLE_USER">User</option>
-          </select>
-          <div th:if="${#fields.hasErrors('role')}" class="text-danger">
-            <p th:each="err : ${#fields.errors('role')}" th:text="${err}"></p>
-          </div>
-        </div>
+         <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
       </form>
 
       <div class="text-center my-3">

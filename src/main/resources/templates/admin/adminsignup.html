@@ -47,6 +47,14 @@
             </div>
           </div>
 
+          <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
+          <input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control" required />
+          <div th:if="${#fields.hasErrors('confirmPassword')}" class="text-danger">
+            <p th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></p>
+          </div>
+        </div>
+
           <!-- Vai trò -->
           <div class="mb-3">
             <label for="role" class="form-label">Vai trò</label>
