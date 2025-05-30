@@ -1,4 +1,84 @@
 <div th:fragment="topbar">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .sidebar { min-width: 220px; max-width: 220px; }
+    .sidebar .nav-link.active { color: #7c3aed; font-weight: 600; }
+    .sidebar .nav-link { color: #6b7280; }
+    .sidebar .nav-link:hover { color: #7c3aed; }
+    .tab-active { color: #7c3aed !important; }
+    .tab-underline { display: none !important; }
+    .bg-purple-50 { background: #f5f3ff; }
+    .bg-purple-700 { background: #7c3aed !important; }
+    .bg-yellow-400 { background: #facc15 !important; }
+    .bg-yellow-500 { background: #eab308 !important; }
+    .text-purple-700 { color: #7c3aed !important; }
+    .rounded-full { border-radius: 9999px !important; }
+    .select-none { user-select: none; }
+    .text-9px { font-size: 9px; }
+    .text-xs { font-size: 0.75rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-lg { font-size: 1.125rem; }
+    .font-semibold { font-weight: 600; }
+    .font-extrabold { font-weight: 800; }
+    .object-contain { object-fit: contain; }
+    .illustration-img {
+      width: 80px !important;
+      height: 80px !important;
+      object-fit: contain;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background: #f5f5f5;
+      border-radius: 12px;
+    }
+    .tab-nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 90px;
+      position: relative;
+      padding-bottom: 2px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .tab-nav-link:not(.tab-active) .tab-underline {
+      display: none;
+    }
+    .tab-nav-link:hover,
+    .tab-nav-link:focus {
+      color: #7c3aed !important;
+      text-decoration: none;
+    }
+    /* Cố định kích thước dropdown menu */
+    .dropdown-menu.dropdown-menu-end {
+      min-width: 220px;
+      max-width: 240px;
+      padding: 10px 0;
+      box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.12);
+    }
+    .dropdown-menu .dropdown-item {
+      padding: 8px 20px;
+      font-size: 0.95rem;
+    }
+    .user-dropdown-menu {
+      min-width: 260px;
+      max-width: 300px;
+      border-radius: 14px;
+      box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.13);
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .user-dropdown-menu .dropdown-item {
+      font-size: 1rem;
+      padding: 10px 24px;
+    }
+    .user-dropdown-menu .dropdown-divider {
+      margin: 0.5rem 0;
+    }
+  </style>
   <header class="d-flex align-items-center justify-content-end gap-2 px-4 py-2 border-bottom bg-white text-xs text-secondary select-none">
     <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1" type="button">
       <i class="fas fa-bell"></i>
@@ -9,6 +89,22 @@
     <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1" type="button">
       <i class="fas fa-question-circle"></i> Nhận trợ giúp
     </button>
-    <div th:insert="client/dropdownAvatar :: dropdownUser"></div>
+      <div class="dropdown">
+    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      <img alt="User avatar" class="rounded-circle" height="40" width="40" src="Anh/7a14e25c1c033ea1b7182eea6d54d87e.jpg"/>
+      <span class="ms-2 text-dark fw-semibold">Đức Khánh</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="userDropdown">
+      <li class="px-3 pt-3 pb-2 text-center">
+        <img src="Anh/7a14e25c1c033ea1b7182eea6d54d87e.jpg" class="rounded-circle mb-2" width="48" height="48" alt="avatar" style="object-fit:cover">
+        <div class="fw-semibold">Đức Khánh</div>
+        <div class="text-secondary small">khanh11122004@gmail.com</div>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item d-flex align-items-center gap-2" href="InforFragment"><i class="fas fa-user"></i> Xem hồ sơ</a></li>
+      <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="fas fa-cog"></i> Cài đặt</a></li>
+      <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+    </ul>
+  </div>
   </header>
 </div>
