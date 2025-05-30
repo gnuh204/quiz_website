@@ -41,8 +41,7 @@ public User registerUserAdmin(UserDTO userDTO){
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
-        user.setPasswordHash(userDTO.getPassword());
-        // user.setRole(User.Role.USER);
+        user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
         user.setRole(userDTO.getRole());
         return userResitory.save(user);
     }
