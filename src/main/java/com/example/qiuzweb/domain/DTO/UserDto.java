@@ -19,7 +19,7 @@ public class UserDTO {
 
     @Size(min = 6, message = "Mật khẩu phải có ít nhất 6 ký tự")
     private String password;
-    @NotBlank(message = "Xác nhận mật khẩu không được để trống", groups = NormalUser.class)
+    @NotBlank(message = "Xác nhận mật khẩu không được để trống")
     private String confirmPassword;
 
     private User.Role role;
