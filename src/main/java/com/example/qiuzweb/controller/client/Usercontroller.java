@@ -62,9 +62,5 @@ public class Usercontroller {
         return "client/forgotpassword"; 
     }
 
-    @GetMapping("/InforFragment")
-    public String resetpassword() {
-        return "client/inforFragment"; 
-    }
     
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
-<html xmlns:th="http://www.thymeleaf.org"></html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,7 +13,7 @@
   <div class="container mt-5">
     <div class="mx-auto" style="max-width: 500px;">
       <div class="bg-white p-4 rounded-4 shadow-sm">
-        <h3 class="text-center mb-4 text-primary">Đăng nhập</h3>
+        <h3 class="text-center mb-4" style="color:  #7c3aed;">Đăng nhập</h3>
 
         <form method="post" th:action="@{/login}">
           <div class="mb-3">
@@ -35,7 +34,7 @@
             <a href="forgotpassword" class="small">Quên mật khẩu?</a>
           </div>
 
-          <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+          <button type="submit" class="btn btn-primary w-100 " style="background-color:  #7c3aed;">Đăng nhập</button>
         </form>
 
         <div class="text-center my-3">
@@ -56,7 +55,7 @@
 
         <div class="text-center">
           <span>Chưa có tài khoản?</span>
-          <a href="register" class="text-decoration-none fw-bold ms-1">Đăng ký</a>
+          <a href="register" class="text-decoration-none fw-bold ms-1 "style="color:#7c3aed;">Đăng ký</a>
         </div>
       </div>
     </div>

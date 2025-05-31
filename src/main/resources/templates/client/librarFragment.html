@@ -12,26 +12,34 @@
 <body class="bg-white text-dark">
   <div class="d-flex min-vh-100">
     <!-- Sidebar -->
-    <div th:replace="client/layout/sidebar :: sidebar"></div>
+    <div th:replace="~{client/layout/sidebar :: sidebar}"></div>
     <!-- Main content -->
-    <main class="flex-grow-1 d-flex flex-column">
+    <main class="flex-grow-1 d-flex flex-column ">
       <!-- Top bar -->
-      <div th:replace="client/layout/topbar :: topbar"></div>
+      <div th:replace="~{client/layout/topbar :: topbar}"></div>
 
       <!-- Content grid -->
-      <section class="flex-grow-1 overflow-auto p-4 bg-light">
-            <div class="col-md-8 col-lg-9 d-flex flex-column align-items-center justify-content-center text-center">
-
+       <div class="container center">
+        <section class="flex-grow-1 overflow-auto p-4">
+            <div class="container h-100">
+          <div class="row h-100">
+            <div class="col-12 d-flex flex-column align-items-center justify-content-center text-center"
+              style="min-height: 60vh;">
+              <img src="https://static.quizizz.com/img/emptystate-letscreate-v5.png" alt="Let's Create"
+                style="width: 180px; max-width: 100%;" class="mb-4">
               <div class="mb-3 fw-semibold fs-5 text-secondary">Tạo quiz hoặc bài học đầu tiên của bạn</div>
               <div class="mb-4 text-secondary" style="font-size:1rem;">
                 Lấy các câu hỏi từ thư viện Quizizz hoặc đặt câu hỏi của riêng bạn. Thật nhanh chóng và dễ dàng!
               </div>
               <div class="d-flex justify-content-center gap-3 mb-5">
-                <button class="btn btn-primary px-4" style="background:#a78bfa;border:none;">Tạo một bài quiz</button>
-                <button class="btn btn-outline-secondary px-4">Tạo một bài học</button>
+                <a href="CreateQuiz"><button class="btn btn-primary px-4" style="background:#a78bfa;border:none;">Tạo một bài quiz</button></a>
               </div>
             </div>
+          </div>
+        </div>
       </section>
+       </div>
+      
     </main>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
