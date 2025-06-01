@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tạo chủ đề mới</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-white text-dark">
+    <div class="d-flex min-vh-100">
+        <!-- Sidebar -->
+        <div th:replace="~{client/layout/sidebar :: sidebar}"></div>
+        <!-- Main content -->
+        <main class="flex-grow-1 d-flex flex-column">
+            <!-- Top bar -->
+            <div th:replace="~{client/layout/topbar :: topbar}"></div>
+
+            <!-- Content grid -->
+            <div class=" container center">
+                <section class="flex-grow-1 overflow-auto p-4">
+
+                    <main class="container my-5">
+                        <section class="bg-white rounded-3 p-4 shadow-sm mx-auto" style="max-width: 950px;">
+                            <h2 class="fw-bold fs-5 mb-4">Tạo chủ đề mới</h2>
+
+                            <form id="quizForm">
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-9">
+                                        <div class="mb-3">
+                                            <label for="quizTitle" class="form-label">Nhập tên chủ đề</label>
+                                            <input type="text" class="form-control" id="quizTitle"
+                                                placeholder="Tên chủ đề..." />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="quizImage" class="form-label">Chọn ảnh</label>
+                                            <input type="file" class="form-control" id="quizImage" accept="image/*" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 d-flex align-items-start justify-content-center">
+                                        <div style="
+              width: 150px;
+              height: 150px;
+              border: 1px solid #ccc;
+              background: #fafafa;
+              border-radius: 8px;
+              overflow: hidden;
+              margin-top: 25px;
+            ">
+                                            <img id="imagePreview" class="img-fluid"
+                                                style="width: 100%; height: 100%; object-fit: cover; display: none;" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <button type="button" class="btn"
+                                        style="background-color:  #7c3aed; color: white; width: 140px;">Lưu chủ
+                                        đề</button>
+                                </div>
+                            </form>
+                        </section>
+                    </main>
+
+                    <script>
+                        const quizImage = document.getElementById('quizImage');
+                        const imagePreview = document.getElementById('imagePreview');
+
+                        quizImage.addEventListener('change', function (event) {
+                            const file = event.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    imagePreview.src = e.target.result;
+                                    imagePreview.style.display = 'block';
+                                };
+                                reader.readAsDataURL(file);
+                            } else {
+                                imagePreview.style.display = 'none';
+                            }
+                        });
+                    </script>
+
+                </section>
+            </div>
+
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -27,7 +27,7 @@ public class Usercontroller {
 
     @GetMapping("/")
     public String Showhomeclient() {
-        return "client/home";
+        return "client/topicfragment";
     }
     
     @GetMapping("/login")
@@ -60,6 +60,6 @@ public class Usercontroller {
     @GetMapping("/forgotpassword")
     public String forgotpassword() {
         return "client/forgotpassword"; 
-   
 }
 }
+
