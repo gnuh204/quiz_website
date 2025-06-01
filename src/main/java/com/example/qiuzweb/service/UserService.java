@@ -4,13 +4,13 @@ import org.springframework.stereotype.Service;
 
 import com.example.qiuzweb.domain.User;
 import com.example.qiuzweb.domain.Dto.UserDTO;
-import com.example.qiuzweb.repository.UserResitory;
+import com.example.qiuzweb.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final UserResitory userResitory;
+    private final UserRepository userResitory;
 
-    public UserService(UserResitory userResitory) {
+    public UserService(UserRepository userResitory) {
         this.userResitory = userResitory;
     }
 
