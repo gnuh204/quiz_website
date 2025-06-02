@@ -56,7 +56,8 @@ public class SecurityConfiguration {
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout=true")
                 .permitAll()
-            );
+            )
+            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
         return http.build();
     }

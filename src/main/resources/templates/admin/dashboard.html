@@ -1,0 +1,35 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang chủ - Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-6">
+  <h1 class="text-3xl font-bold mb-6">
+    Chào mừng <span th:text="${username}">Tên người dùng</span> đến trang Admin 🎉
+  </h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Tổng số người dùng -->
+    <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+      <h2 class="text-lg font-semibold">Tổng số người dùng</h2>
+      <p class="text-3xl font-bold mt-2" th:text="${totalUsers}">0</p>
+      <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+        <div class="bg-green-500 h-2 rounded-full" th:style="'width:' + ${userPercent} + '%'"></div>
+      </div>
+    </div>
+
+    <!-- Tổng số quiz -->
+    <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+      <h2 class="text-lg font-semibold">Tổng số bài Quiz</h2>
+      <p class="text-3xl font-bold mt-2" th:text="${totalQuizzes}">0</p>
+      <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+        <div class="bg-red-500 h-2 rounded-full" th:style="'width:' + ${quizPercent} + '%'"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

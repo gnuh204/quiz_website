@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service;
 
 import com.example.qiuzweb.domain.User;
 import com.example.qiuzweb.domain.Dto.UserDTO;
-import com.example.qiuzweb.repository.UserResitory;
+import com.example.qiuzweb.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final UserResitory userResitory;
+    private final UserRepository userResitory;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserResitory userResitory , PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userResitory , PasswordEncoder passwordEncoder) {
         this.userResitory = userResitory;
         this.passwordEncoder = passwordEncoder;
     }
