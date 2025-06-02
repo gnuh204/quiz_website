@@ -18,7 +18,7 @@ public class UserAdcontroller {
     @GetMapping("/admin")
     public String adminHome(Model model) {
         model.addAttribute("username", "Admin");
-        return "index3";
+        return "admin/index3";
     }
 
     @GetMapping("/admin/dashboard")
@@ -28,33 +28,33 @@ public class UserAdcontroller {
         model.addAttribute("totalQuizzes", 45);
         model.addAttribute("userPercent", 75);
         model.addAttribute("quizPercent", 55);
-        return "dashboard";
+        return "admin/dashboard";
     }
 
     @GetMapping("/admin/accounts")
     public String accountManagement(Model model) {
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
-        return "account-management"; // file HTML nằm trong templates/
+        return "admin/account-management";
     }
 
     @GetMapping("/admin/quizzes")
     public String quizManagement(Model model) {
-        return "quiz-management";
+        return "admin/quiz-management";
     }
 
     @GetMapping("/admin/account/create")
     public String createAccountForm() {
-        return "create-account";
+        return "admin/create-account";
     }
 
     @GetMapping("/admin/account/add")
     public String addAccountForm() {
-        return "add-account";
+        return "admin/add-account";
     }
 
     @GetMapping("/admin/question/add")
     public String addQuestionForm() {
-        return "Cauhoi";
+        return "admin/Cauhoi";
     }
 }
