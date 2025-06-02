@@ -1,8 +1,7 @@
 package com.example.qiuzweb.controller.admin;
 
 import com.example.qiuzweb.domain.User;
-import com.example.qiuzweb.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.qiuzweb.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +12,11 @@ import java.util.List;
 
 public class UserAdcontroller {
 
-    @Autowired
-    private UserRepository userRepository; // Đảm bảo tên đúng với interface
-
+  private final UserService userService;
+    
+    public UserAdcontroller(UserService userService) {
+        this.userService = userService;
+    }
     @GetMapping("/admin")
     public String adminHome(Model model) {
         model.addAttribute("username", "Admin");
@@ -33,11 +34,12 @@ public class UserAdcontroller {
     }
 
     @GetMapping("/admin/accounts")
-    public String accountManagement(Model model) {
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "admin/account-management";
-    }
+public String accountManagement(Model model) {
+    List<User> users = userService.findAllUser();
+    model.addAttribute("users", users);
+    return "admin/account-management";
+}
+
 
     @GetMapping("/admin/quizzes")
     public String quizManagement(Model model) {

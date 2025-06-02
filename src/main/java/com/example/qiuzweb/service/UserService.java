@@ -1,5 +1,7 @@
 package com.example.qiuzweb.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,4 +48,8 @@ public User registerUserAdmin(UserDTO userDTO){
         user.setRole(userDTO.getRole());
         return userResitory.save(user);
     }
+  public List<User> findAllUser() {
+    return userResitory.findAll();
+}
+
 }
