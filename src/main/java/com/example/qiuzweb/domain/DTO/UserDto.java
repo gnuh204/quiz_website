@@ -23,6 +23,14 @@ public class UserDTO {
     private String confirmPassword;
 
     private User.Role role;
+    private Long userimage;
+    public Long getUserimage() {
+        return userimage;
+    }
+
+    public void setUserimage(Long userimage) {
+        this.userimage = userimage;
+    }
 
     public String getUsername() {
         return username;
@@ -55,7 +63,6 @@ public class UserDTO {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
 
     public User.Role getRole() {
         return role;
