@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,7 +23,7 @@
                 <main class="container my-5">
                     <section class="bg-white rounded-3 p-4 shadow-sm mx-auto" style="max-width: 950px;">
                         <h2 class="fw-bold fs-5 mb-4">Tạo một quiz mới</h2>
-                        <form id="quizForm" th:action="@{/quizzes/create}" method="post" enctype="multipart/form-data">
+                        <form id="quizForm" th:action="@{/quizzes/save}" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="quizMainContent" class="form-label">Tên quiz</label>
                                 <input type="text" class="form-control" id="quizMainContent" name="title"
@@ -43,9 +42,10 @@
                                         <label for="quizCategory" class="form-label">Chọn chủ đề</label>
                                         <select class="form-select" id="quizCategory" name="categoryId" required>
                                             <option selected disabled hidden value="">-- Chọn chủ đề --</option>
-                                            <option th:each="category : ${categories}" th:value="${category.id}"
+                                            <option th:each="category : ${categories}" th:value="${category.categoryId}"
                                                 th:text="${category.name}">
                                             </option>
+
                                         </select>
                                     </div>
 
