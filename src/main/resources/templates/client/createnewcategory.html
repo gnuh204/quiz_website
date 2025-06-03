@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,31 +25,36 @@
                         <section class="bg-white rounded-3 p-4 shadow-sm mx-auto" style="max-width: 950px;">
                             <h2 class="fw-bold fs-5 mb-4">Tạo chủ đề mới</h2>
 
-                           <form th:action="@{/admin/topics/save}" method="post" enctype="multipart/form-data">
-    <div class="row g-3 mb-4">
-        <div class="col-md-9">
-            <div class="mb-3">
-                <label for="quizTitle" class="form-label">Nhập tên chủ đề</label>
-                <input type="text" class="form-control" id="quizTitle" name="title" placeholder="Tên chủ đề..." />
-            </div>
+                            <form th:action="@{/admin/topics/save}" method="post" enctype="multipart/form-data">
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-9">
+                                        <div class="mb-3">
+                                            <label for="quizTitle" class="form-label">Nhập tên chủ đề</label>
+                                            <input type="text" class="form-control" id="quizTitle" name="title"
+                                                placeholder="Tên chủ đề..." />
+                                        </div>
 
-            <div class="mb-3">
-                <label for="quizImage" class="form-label">Chọn ảnh</label>
-                <input type="file" class="form-control" id="quizImage" name="imageFile" accept="image/*" />
-            </div>
-        </div>
+                                        <div class="mb-3">
+                                            <label for="quizImage" class="form-label">Chọn ảnh</label>
+                                            <input type="file" class="form-control" id="quizImage" name="imageFile"
+                                                accept="image/*" />
+                                        </div>
+                                    </div>
 
-        <div class="col-md-3 d-flex align-items-start justify-content-center">
-            <div style="width: 150px; height: 150px; border: 1px solid #ccc; background: #fafafa; border-radius: 8px; overflow: hidden; margin-top: 25px;">
-                <img id="imagePreview" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover; display: none;" />
-            </div>
-        </div>
-    </div>
+                                    <div class="col-md-3 d-flex align-items-start justify-content-center">
+                                        <div
+                                            style="width: 150px; height: 150px; border: 1px solid #ccc; background: #fafafa; border-radius: 8px; overflow: hidden; margin-top: 25px;">
+                                            <img id="imagePreview" class="img-fluid"
+                                                style="width: 100%; height: 100%; object-fit: cover; display: none;" />
+                                        </div>
+                                    </div>
+                                </div>
 
-    <div class="text-center mt-4">
-        <button type="submit" class="btn" style="background-color:  #7c3aed; color: white; width: 140px;">Lưu chủ đề</button>
-    </div>
-</form>
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn"
+                                        style="background-color:  #7c3aed; color: white; width: 140px;">Lưu chủ đề</button>
+                                </div>
+                            </form>
 
                         </section>
                     </main>

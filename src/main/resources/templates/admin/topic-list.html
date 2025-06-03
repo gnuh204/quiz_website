@@ -11,20 +11,20 @@
     <h2 class="mb-4">Danh sách chủ đề</h2>
 
    <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col" th:each="topic : ${topics}">
+    <div class="col" th:each="Category: ${categorys}">
         <div class="card h-100">
 
             <!-- DEBUG: In ra tên file ảnh -->
-            <p class="text-muted" th:text="'Tên ảnh: ' + ${topic.imageName}">Tên ảnh</p>
+            <p class="text-muted" th:text="'Tên ảnh: ' + ${Category.imageUrl}">Tên ảnh</p>
 
             <!-- Hiển thị ảnh -->
-            <img th:src="@{/images/{img}(img=${topic.imageName})}"
+            <img th:src="@{/images/{img}(img=${Category.imageUrl})}"
                  class="card-img-top"
                  alt="Ảnh chủ đề"
                  style="height: 200px; object-fit: cover;" />
 
             <div class="card-body">
-                <h5 class="card-title" th:text="${topic.title}">Tên chủ đề</h5>
+                <h5 class="card-title" th:text="${Category.name}">Tên chủ đề</h5>
             </div>
         </div>
     </div>
