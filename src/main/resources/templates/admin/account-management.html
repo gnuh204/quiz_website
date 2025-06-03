@@ -6,27 +6,66 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-800 p-6">
-  <h1 class="text-2xl font-bold mb-4">Danh sách tài khoản</h1>
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-2xl font-bold">Danh sách tài khoản</h1>
+    <a href="" 
+       class="text-white px-4 py-2 rounded"
+       style="background-color: #7c3aed;">
+       Thêm tài khoản
+    </a>
+  </div>
 
   <table class="min-w-full bg-white shadow rounded-lg">
     <thead>
       <tr class="bg-gray-200 text-left">
-        <th class="p-3">ID</th>
         <th class="p-3">Username</th>
         <th class="p-3">Email</th>
         <th class="p-3">Role</th>
         <th class="p-3">Ngày tạo</th>
+        <th class="p-3">Hành động</th>
       </tr>
     </thead>
     <tbody>
       <tr th:each="user : ${users}" class="border-t hover:bg-gray-100">
-        <td class="p-3" th:text="${user.userId}">1</td>
         <td class="p-3" th:text="${user.username}">demo</td>
         <td class="p-3" th:text="${user.email}">demo@example.com</td>
         <td class="p-3" th:text="${user.role}">ADMIN</td>
         <td class="p-3" th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy HH:mm')}">01/06/2025</td>
+        <td class="p-3">
+
+<button onclick="openModal('[[${user.userId}]]')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+    Xóa
+</button>
+
+<div id="modal-[[${user.userId}]]" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+  <div class="bg-white p-6 rounded shadow-lg">
+    <h2 class="text-xl font-semibold mb-4">Xác nhận xóa</h2>
+    <p>Bạn có chắc chắn muốn xóa tài khoản không?</p>
+    <div class="mt-6 flex justify-end space-x-4">
+      <button onclick="closeModal('[[${user.userId}]]')" class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded">Hủy</button>
+<form th:action="@{'/admin/delete/' + ${user.userId}}" method="get">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Xác nhận</button>
+</form>
+
+    </div>
+  </div>
+</div>
+
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <script>
+function openModal(userId) {
+    document.getElementById('modal-' + userId).classList.remove('hidden');
+}
+function closeModal(userId) {
+    document.getElementById('modal-' + userId).classList.add('hidden');
+}
+
+</script>
+
 </body>
 </html>

@@ -46,11 +46,11 @@ public class Usercontroller {
         return "client/signup";
             }
         if(userService.usernameexists(userDTO.getUsername())){
-            result.rejectValue("username", null, "Tên đã tồn tại");
+            result.rejectValue("username",  "Tên đã tồn tại");
             return "client/signup";
         }
          if(userService.emailexists(userDTO.getEmail())){
-            result.rejectValue("email", null,"email đã tồn tại");
+            result.rejectValue("email", "email đã tồn tại");
            return "client/signup";
         }
         userService.registerUser(userDTO); 
