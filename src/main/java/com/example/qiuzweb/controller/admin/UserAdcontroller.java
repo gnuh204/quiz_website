@@ -5,6 +5,8 @@ import com.example.qiuzweb.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -60,5 +62,9 @@ public String accountManagement(Model model) {
     public String addQuestionForm() {
         return "admin/Cauhoi";
     }
-    
+    @PostMapping("/admin/delete/{userId}")
+    public String deleteUser(@PathVariable("userId") Long userId) {
+    userService.deleteUserById(userId);
+    return "redirect:/admin/accounts";
+}
 }

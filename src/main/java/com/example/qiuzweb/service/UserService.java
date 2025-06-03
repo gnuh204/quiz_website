@@ -14,24 +14,24 @@ public class UserService {
     private final UserRepository userResitory;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userResitory , PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userResitory, PasswordEncoder passwordEncoder) {
         this.userResitory = userResitory;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public boolean usernameexists(String username){
-         return userResitory.findByUsername(username).isPresent();
+    public boolean usernameexists(String username) {
+        return userResitory.findByUsername(username).isPresent();
     }
 
-    public boolean emailexists(String email){
+    public boolean emailexists(String email) {
         return userResitory.findByEmail(email).isPresent();
     }
-    
-    public User findByEmail(String email){
+
+    public User findByEmail(String email) {
         return this.userResitory.findByEmail(email).orElse(null);
     }
 
-    public User registerUser(UserDTO userDTO){
+    public User registerUser(UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
@@ -40,7 +40,7 @@ public class UserService {
         return userResitory.save(user);
     }
 
-public User registerUserAdmin(UserDTO userDTO){
+    public User registerUserAdmin(UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
@@ -48,8 +48,13 @@ public User registerUserAdmin(UserDTO userDTO){
         user.setRole(userDTO.getRole());
         return userResitory.save(user);
     }
-  public List<User> findAllUser() {
-    return userResitory.findAll();
-}
+
+    public List<User> findAllUser() {
+        return userResitory.findAll();
+    }
+
+    public void deleteUserById(Long id) {
+        userResitory.deleteById(id);
+    }
 
 }
