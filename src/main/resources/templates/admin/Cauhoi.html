@@ -30,7 +30,7 @@
 
             <div class="mb-3">
               <label for="quizImage" class="form-label">Chọn ảnh</label>
-              <input type="file" class="form-control" id="quizImage" accept="image/*" />
+              <input type="file" class="form-control" id="categoryImage" accept="image/*" />
             </div>
           </div>
 
@@ -44,7 +44,7 @@
               overflow: hidden;
               margin-top: 25px;
             ">
-              <img id="imagePreview" class="img-fluid"
+              <img id="categoryPreview" class="img-fluid"
                 style="width: 100%; height: 100%; object-fit: cover; display: none;" />
             </div>
           </div>
@@ -93,7 +93,7 @@
               margin-top: 20px;
               margin-left: 55px;
             ">
-              <img id="imagePreview" style="width: 100%; height: 100%; object-fit: cover; display: none;" />
+              <img id="quizPreview" style="width: 100%; height: 100%; object-fit: cover; display: none;" />
             </div>
           </div>
         </div>
@@ -136,6 +136,10 @@
         }
       });
     }
+    window.addEventListener('DOMContentLoaded', () => {
+      setupImagePreview("categoryImage", "categoryPreview");
+      setupImagePreview("quizImage", "quizPreview");
+    });
   </script>
 
   <style>
