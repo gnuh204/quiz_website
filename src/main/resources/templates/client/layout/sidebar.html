@@ -1,5 +1,5 @@
 <div th:fragment="sidebar">
-  <aside class="sidebar d-flex flex-column border-end bg-white">
+  <!-- <aside class="sidebar d-flex flex-column border-end bg-white">
     <div class="d-flex align-items-center gap-1 px-4 py-3">
       <h1 class="font-extrabold fs-3 text-purple-700 select-none mb-0">Quizizz</h1>
       <span class="text-xs font-semibold text-secondary pt-1 select-none">STUDENT</span>
@@ -24,5 +24,26 @@
     <button class="mx-4 mb-4 btn bg-yellow-400 text-black text-xs font-semibold py-2 px-3 rounded d-flex align-items-center" type="button">
       <i class="fas fa-lock me-1"></i> Nâng cấp
     </button>
+  </aside> -->
+  <aside class="sidebar d-flex flex-column border-end bg-white" style="min-width:260px;">
+    <div class="d-flex align-items-center gap-2 px-4 py-4">
+      <h1 class="font-extrabold fs-2 text-purple-700 select-none mb-0" style="letter-spacing:1px;">Quizizz</h1>
+      <span class="text-sm fw-bold text-secondary pt-1 select-none" style="font-size:1.1rem;">STUDENT</span>
+    </div>
+    <button class="mx-4 mb-4 btn bg-purple-700 text-white text-md fw-bold py-3 px-4 rounded" type="button"
+      style="font-size:1.1rem;">
+      + Tạo mới
+    </button>
+    <nav class="nav flex-column px-4 mb-2">
+      <a class="nav-link active d-flex align-items-center gap-3 py-3 mb-2 rounded" href="#" style="font-size:1.1rem;">
+        <i class="fas fa-home fa-lg"></i> <span>Khám phá</span>
+      </a>
+      <a class="nav-link d-flex align-items-center gap-3 py-3 mb-2 rounded" href="#" style="font-size:1.1rem;">
+        <i class="fas fa-book fa-lg"></i> <span>Thư viện</span>
+      </a>
+      <a class="nav-link d-flex align-items-center gap-3 py-3 mb-2 rounded" href="#" style="font-size:1.1rem;">
+        <i class="fas fa-chart-bar fa-lg"></i> <span>Báo cáo</span>
+      </a>
+    </nav>
   </aside>
 </div>

@@ -29,46 +29,12 @@
         <div class="container">
           <h3 class="mb-4">Chủ đề nổi bật</h3>
           <div class="row row-cols-1 row-cols-md-4 g-3">
-            <div class="col">
+            <div class="col" th:each="topic : ${topics}">
               <div class="card h-100">
-                <img src="Anh/y-nghia-cac-con-so-cover.jpg" class="card-img-top" alt="Topic 1"
-                  style="height:180px; object-fit:cover;">
+                <div style="height:180px; background: url([[${topic.imageUrl}]]) center center/cover no-repeat;"></div>
                 <div class="card-body">
-                  <h5 class="card-title">Toán học</h5>
-                  <p class="card-text">125 bài học</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="Anh/topic2.jpg" class="card-img-top" alt="Topic 2" style="height:180px; object-fit:cover;">
-                <div class="card-body">
-                  <h5 class="card-title">Khoa học</h5>
-                  <p class="card-text">100 bài học</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="Anh/topic3.jpg" class="card-img-top" alt="Topic 3" style="height:180px; object-fit:cover;">
-                <div class="card-body">
-                  <h5 class="card-title">Lịch sử</h5>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="Anh/topic4.jpg" class="card-img-top" alt="Topic 4" style="height:180px; object-fit:cover;">
-                <div class="card-body">
-                  <h5 class="card-title">Văn học</h5>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="Anh/topic5.jpg" class="card-img-top" alt="Topic 5" style="height:180px; object-fit:cover;">
-                <div class="card-body">
-                  <h5 class="card-title">Địa lý</h5>
+                  <h5 class="card-title" th:text="${topic.title}">Tên chủ đề</h5>
+                  <p class="card-text" th:text="${topic.lessonCount} + ' bài học'">Số bài học</p>
                 </div>
               </div>
             </div>
