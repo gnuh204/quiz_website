@@ -11,7 +11,7 @@ import java.nio.file.*;
 import com.example.qiuzweb.domain.Category;
 
 @Controller
-@RequestMapping("/admin/topics")
+@RequestMapping("/topics")
 public class AdminTopicController {
 
   
@@ -44,7 +44,7 @@ public class AdminTopicController {
         topic.setImageUrl(fileName);
         categoryService.saveCategory(topic);
 
-        return "redirect:/admin/topics/list";
+        return "redirect:/topics/list";
     }
 
     @GetMapping("/list")

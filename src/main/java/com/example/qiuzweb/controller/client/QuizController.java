@@ -27,41 +27,14 @@ public class QuizController {
     public String resetpassword() {
         return "client/inforFragment";
     }
-
+    // Tao Quiz
     @GetMapping("/CreateQuiz")
     public String CrteateQuiz(Model model) {
         List<Category> categories = categoryService.allCategory(); 
-        System.out.println("Số lượng category: " + categories.size());
         model.addAttribute("categories", categories);
         return "client/createQuizFragment";
     }
-
-    @GetMapping("/Library")
-    public String ShowLibrary() {
-        return "client/librarFragment";
-    }
-
-    @GetMapping("/NewCategory")
-    public String ShowNewCategory() {
-        return "client/createnewfragment";
-    }
-
-    @GetMapping("createNewCategory")
-    public String getMethodName() {
-        return "client/createnewcategory";
-    }
-
-    @PostMapping("/quizzes/create")
-    public String createQuiz(@RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("categoryId") Long categoryId,
-            @RequestParam("timeLimitMinutes") Integer timeLimitMinutes,
-            @RequestParam("imageFile") MultipartFile imageFile,
-            Principal principal) {
-        quizService.saveQuiz(title, description, categoryId, timeLimitMinutes, imageFile, principal);
-        return "redirect:/quizzes/list";
-    }
-    @PostMapping("/quizzes/save")
+        @PostMapping("/quizzes/save")
     public String saveQuiz(@RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("categoryId") Long categoryId,
@@ -71,5 +44,29 @@ public class QuizController {
         quizService.saveQuiz(title, description, categoryId, timeLimitMinutes, imageFile, principal);
         return "redirect:/Library";
     }
+    //thu vien Quiz
+    @GetMapping("/Library")
+    public String ShowLibrary() {
+        return "client/librarFragment";
+    }
+      // tao category
+    @GetMapping("/createNewCategory")
+    public String getMethodName() {
+        return "client/createnewcategory";
+    }
+
+    // chon Tao Category
+    @GetMapping("/NewCategory")
+    public String ShowNewCategory() {
+        return "client/createnewfragment";
+    }
+
+    // Tien trinh lam bai
+    @GetMapping("/QuizProcess")
+    public String QuizProcess() {
+        return "client/progressFragment";
+    }
+  
+
 
 }
