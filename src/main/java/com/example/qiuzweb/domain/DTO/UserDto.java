@@ -71,4 +71,14 @@ public class UserDTO {
     public void setRole(User.Role role) {
         this.role = role;
     }
+    private String avatar;
+
+    public String getAvatar() {
+    return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
 }

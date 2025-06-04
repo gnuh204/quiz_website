@@ -79,32 +79,30 @@
       margin: 0.5rem 0;
     }
   </style>
-  <header class="d-flex align-items-center justify-content-end gap-2 px-4 py-2 border-bottom bg-white text-xs text-secondary select-none">
-    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1" type="button">
-      <i class="fas fa-bell"></i>
-    </button>
-    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1" type="button">
-      Nhập mã
-    </button>
-    <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1" type="button">
-      <i class="fas fa-question-circle"></i> Nhận trợ giúp
-    </button>
-      <div class="dropdown">
-    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      <img alt="User avatar" class="rounded-circle" height="40" width="40" src="Anh/7a14e25c1c033ea1b7182eea6d54d87e.jpg"/>
-      <span class="ms-2 text-dark fw-semibold">Đức Khánh</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="userDropdown">
-      <li class="px-3 pt-3 pb-2 text-center">
-        <img src="Anh/7a14e25c1c033ea1b7182eea6d54d87e.jpg" class="rounded-circle mb-2" width="48" height="48" alt="avatar" style="object-fit:cover">
-        <div class="fw-semibold">Đức Khánh</div>
-        <div class="text-secondary small">khanh11122004@gmail.com</div>
-      </li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item d-flex align-items-center gap-2" href="InforFragment"><i class="fas fa-user"></i> Xem hồ sơ</a></li>
-      <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="fas fa-cog"></i> Cài đặt</a></li>
-      <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
-    </ul>
-  </div>
+<header class="d-flex align-items-center justify-content-end gap-2 px-4 py-2 border-bottom bg-white text-xs text-secondary select-none">
+    <!-- Các nút bên phải -->
+    <button class="btn btn-outline-secondary btn-sm"><i class="fas fa-bell"></i></button>
+    <button class="btn btn-outline-secondary btn-sm">Nhập mã</button>
+    <button class="btn btn-outline-secondary btn-sm"><i class="fas fa-question-circle"></i> Trợ giúp</button>
+    <div th:text="'User: ' + ${currentUser.email}"></div>
+
+    <div class="dropdown" th:if="${currentUser != null}">
+    <a href="#" role="button" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
+      <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu">
+        <li class="text-center pt-3 pb-2">
+          <div class="small text-secondary" th:text="${currentUser.email}">Email</div>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="InforFragment"><i class="fas fa-user"></i> Hồ sơ</a></li>
+        <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Cài đặt</a></li>
+        <li><a class="dropdown-item" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+      </ul>
+    </div>
+    
+    <div th:if="${currentUser == null}">
+      <a class="btn btn-outline-primary" th:href="@{/login}">Đăng nhập</a>
+      <a class="btn btn-primary" th:href="@{/register}">Đăng ký</a>
+    </div>
   </header>
 </div>

@@ -40,16 +40,27 @@ public class UserService {
         return userResitory.save(user);
     }
 
-public User registerUserAdmin(UserDTO userDTO){
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setEmail(userDTO.getEmail());
-        user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
-        user.setRole(userDTO.getRole());
-        return userResitory.save(user);
+    public User registerUserAdmin(UserDTO userDTO){
+            User user = new User();
+            user.setUsername(userDTO.getUsername());
+            user.setEmail(userDTO.getEmail());
+            user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
+            user.setRole(userDTO.getRole());
+            return userResitory.save(user);
+        }
+    
+    public List<User> findAllUser() {
+        return userResitory.findAll();
     }
-  public List<User> findAllUser() {
-    return userResitory.findAll();
+    public UserDTO findByUsername(String username) {
+    return userResitory.findByUsername(username)
+        .map(user -> {
+            UserDTO dto = new UserDTO();
+            dto.setUsername(user.getUsername());
+            dto.setEmail(user.getEmail());
+            dto.setRole(user.getRole());
+            return dto;
+        }).orElse(null);
 }
 
 }

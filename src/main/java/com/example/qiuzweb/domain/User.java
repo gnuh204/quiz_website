@@ -18,8 +18,15 @@ public class User {
 
     private String username;
     private String passwordHash;
-
     private String email;
+    private String fullname;
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
 
     @Enumerated(EnumType.STRING)
     private Role role;
