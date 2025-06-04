@@ -18,20 +18,24 @@ public class User {
 
     private String username;
     private String passwordHash;
-
     private String email;
-
     @Enumerated(EnumType.STRING)
     private Role role;
-
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
-
     public enum Role { USER, ADMIN }
-
+    private String imgurl;
     public Long getUserId() {
         return userId;
+    }
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 
     public void setUserId(Long userId) {
