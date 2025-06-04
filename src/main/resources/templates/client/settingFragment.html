@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quizizz Student</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+</head>
+
+<body class="bg-white text-dark">
+    <div class="d-flex min-vh-100">
+        <!-- Sidebar -->
+        <div th:replace="~{client/layout/sidebar :: sidebar}"></div>
+
+        <!-- Main content -->
+        <main class="flex-grow-1 d-flex flex-column">
+            <!-- Top bar -->
+            <div th:replace="~{client/layout/topbar :: topbar}"></div>
+            <!-- Content grid -->
+            <section class="flex-grow-1 overflow-auto p-4 bg-light">
+                <div class="container d-flex justify-content-center align-items-start">
+                    <div class="bg-white rounded-3 shadow-sm p-4"
+                        style="max-width: 600px; width: 100%; margin-top: 24px;">
+                        <h2 class="fw-bold mb-4" style="font-size: 2rem;">Cài đặt</h2>
+                        <form>
+                            <!-- Tài khoản -->
+                            <div class="mb-4">
+                                <div class="fw-semibold mb-2"><i class="bi bi-person-circle me-2"></i>Tài khoản</div>
+                                <div class="mb-2">
+                                    <label for="email" class="form-label mb-1">E-mail</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Nhập email"
+                                        value="khanh11122004@gmail.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fullname" class="form-label mb-1">Tên tài khoản</label>
+                                    <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên"
+                                        value="Đức Khánh">
+                                </div>
+                                <button type="submit" class="btn w-100 fw-semibold text-white"
+                                    style="background:#8d5fd3;">Lưu thay đổi
+                                </button>
+                                <hr>
+                                <div>
+                                    <div class="fw-semibold mb-2"><i class="bi bi-lock-fill me-2"></i>Mật khẩu</div>
+                                    <div class="mb-2">
+                                        <label for="newpass" class="form-label mb-1">Mật khẩu mới (ít nhất 6 ký
+                                            tự)</label>
+                                        <input type="password" class="form-control" id="newpass"
+                                            placeholder="Nhập mật khẩu mới">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="renewpass" class="form-label mb-1">Mật khẩu mới một lần nữa</label>
+                                        <input type="password" class="form-control" id="renewpass"
+                                            placeholder="Nhập lại mật khẩu mới">
+                                    </div>
+                                    <button type="submit" class="btn w-100 fw-semibold text-white"
+                                        style="background:#8d5fd3;" disabled>
+                                        Cập nhật mật khẩu</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="mt-5 pt-3 border-top">
+                            <div class="mb-2 fw-semibold text-dark">
+                                <i class="bi bi-trash3 me-2"></i>Xóa tài khoản
+                            </div>
+                            <button class="btn btn-outline-danger w-100 fw-semibold py-2" type="button">
+                                Xóa vĩnh viễn tài khoản của bạn
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
