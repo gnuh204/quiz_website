@@ -15,7 +15,6 @@
     <nav class="bg-dark rounded-top px-3 py-2 mb-0 d-flex justify-between text-center">
       <button class="btn btn-dark border-0 text-white flex-fill" onclick="showTab('tab1', event)">Tạo chủ đề</button>
       <button class="btn btn-dark border-0 text-white flex-fill" onclick="showTab('tab2', event)">Tạo Quiz</button>
-      <button class="btn btn-dark border-0 text-white flex-fill" onclick="showTab('tab3', event)">Thêm câu hỏi</button>
     </nav>
 
     <!--Tạo Chủ Đề -->
@@ -107,86 +106,6 @@
           <button type="button" class="btn" style="background-color: #7c3aed; color: white; width: 140px;">Lưu
             Quiz</button>
         </div>
-      </form>
-    </section>
-
-    <!--Thêm Câu Hỏi -->
-    <section id="tab3" class="bg-white p-4 rounded-bottom shadow-sm d-none">
-      <h2 class="fw-bold fs-5 mb-4">Thêm câu hỏi vào Quiz</h2>
-      <form>
-        <div class="mb-3">
-          <label class="form-label">Nội dung câu hỏi</label>
-          <textarea class="form-control" rows="3" placeholder="Nhập nội dung câu hỏi..."></textarea>
-        </div>
-        <div class="row g-3 mb-4">
-          <div class="col-md-9">
-            <div class="mb-3">
-              <label for="quizCategory" class="form-label">Chọn loại đáp án</label>
-              <select class="form-select">
-                <option selected disabled hidden></option>
-                <option value="1">Chọn một đáp án</option>
-                <option value="2">Chọn nhiều đáp án</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="quizImage" class="form-label">Chọn ảnh</label>
-              <input type="file" class="form-control" id="quizImage" accept="image/*" />
-            </div>
-          </div>
-
-          <div class="col-md-3 d-flex align-items-start justify-content-center">
-            <div style="
-              width: 150px;
-              height: 150px;
-              border: 1px solid #ccc;
-              background: #fafafa;
-              border-radius: 8px;
-              overflow: hidden;
-              margin-top: 20px;
-              margin-left: 55px;
-            ">
-              <img id="imagePreview" style="width: 100%; height: 100%; object-fit: cover; display: none;" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <label class="form-label">Đáp án A</label>
-          <div class="input-group mb-2">
-            <div class="input-group-text">
-              <input type="checkbox" class="form-check-input mt-0" />
-            </div>
-            <input type="text" class="form-control" placeholder="Đáp án A" />
-          </div>
-
-          <label class="form-label">Đáp án B</label>
-          <div class="input-group mb-2">
-            <div class="input-group-text">
-              <input type="checkbox" class="form-check-input mt-0" />
-            </div>
-            <input type="text" class="form-control" placeholder="Đáp án B" />
-          </div>
-
-          <label class="form-label">Đáp án C</label>
-          <div class="input-group mb-2">
-            <div class="input-group-text">
-              <input type="checkbox" class="form-check-input mt-0" />
-            </div>
-            <input type="text" class="form-control" placeholder="Đáp án C" />
-          </div>
-
-          <label class="form-label">Đáp án D</label>
-          <div class="input-group mb-2">
-            <div class="input-group-text">
-              <input type="checkbox" class="form-check-input mt-0" />
-            </div>
-            <input type="text" class="form-control" placeholder="Đáp án D" />
-          </div>
-        </div>
-
-        <div class="col-12 d-flex justify-content-center gap-2">
-          <button type="button" class="btn" style="background-color: #7c3aed; color: white; width: 140px;">Lưu câu
-            hỏi</button>
       </form>
     </section>
   </div>
