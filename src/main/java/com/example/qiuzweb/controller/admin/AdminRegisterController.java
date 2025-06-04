@@ -32,11 +32,11 @@ public class AdminRegisterController {
         return "admin/adminsignup";
             }
         if(userService.usernameexists(dto.getUsername())){
-            result.rejectValue("username", null, "Tên đã tồn tại");
+            result.rejectValue("username",  "Tên đã tồn tại");
             return "admin/adminsignup";
         }
         if(userService.emailexists(dto.getEmail())){
-            result.rejectValue("email", null,"email đã tồn tại");
+            result.rejectValue("email", "email đã tồn tại");
            return "admin/adminsignup";
         }
         userService.registerUserAdmin(dto);

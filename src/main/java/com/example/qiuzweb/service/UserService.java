@@ -11,24 +11,24 @@ import com.example.qiuzweb.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final UserRepository userResitory;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userResitory, PasswordEncoder passwordEncoder) {
-        this.userResitory = userResitory;
-        this.passwordEncoder = passwordEncoder;
-    }
+public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    this.userRepository = userRepository;
+    this.passwordEncoder = passwordEncoder;
+}
 
     public boolean usernameexists(String username) {
-        return userResitory.findByUsername(username).isPresent();
+        return userRepository.findByUsername(username).isPresent();
     }
 
     public boolean emailexists(String email) {
-        return userResitory.findByEmail(email).isPresent();
+        return userRepository.findByEmail(email).isPresent();
     }
 
     public User findByEmail(String email) {
-        return this.userResitory.findByEmail(email).orElse(null);
+        return this.userRepository.findByEmail(email).orElse(null);
     }
 
     public User registerUser(UserDTO userDTO) {
@@ -37,7 +37,7 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
         user.setRole(User.Role.USER);
-        return userResitory.save(user);
+        return userRepository.save(user);
     }
 
     public User registerUserAdmin(UserDTO userDTO) {
@@ -46,15 +46,15 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
         user.setRole(userDTO.getRole());
-        return userResitory.save(user);
+        return userRepository.save(user);
     }
 
     public List<User> findAllUser() {
-        return userResitory.findAll();
+        return userRepository.findAll();
     }
 
-    public void deleteUserById(Long id) {
-        userResitory.deleteById(id);
-    }
+public void deleteUserById(Long id) {
+    userRepository.deleteById(id);
+}
 
 }
