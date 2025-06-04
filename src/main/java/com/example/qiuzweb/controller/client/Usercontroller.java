@@ -70,5 +70,4 @@ public class Usercontroller {
         model.addAttribute("user", new UserDTO());
         return "client/setprofileFragment";
     }
-   
 }
