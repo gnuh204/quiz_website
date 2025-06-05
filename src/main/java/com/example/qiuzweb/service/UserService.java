@@ -55,6 +55,10 @@ public UserService(UserRepository userRepository, PasswordEncoder passwordEncode
 
 public void deleteUserById(Long id) {
     userRepository.deleteById(id);
+
+}
+public User save(User user) {
+    return userRepository.save(user);
 }
 
 }
