@@ -30,35 +30,33 @@
     </div>
     <!-- Profile Card -->
     <div class="bg-white rounded-3 shadow-sm p-4 d-flex align-items-center mb-4" style="gap:32px;">
-      <img src="Anh/7a14e25c1c033ea1b7182eea6d54d87e.jpg" alt="avatar" class="rounded-circle" style="width:96px;height:96px;object-fit:cover;">
-      <div class="flex-grow-1">
-        <div class="d-flex align-items-center gap-2 mb-1">
-          <span class="fw-semibold fs-5">Đức Khánh</span>
-          <span class="badge bg-purple-100 text-purple-700" style="font-size:0.85rem;font-weight:600;">Nam</span>
-        </div>
-        <div class="text-secondary mb-2" style="font-size:0.95rem;">khanh11122004@gmail.com</div>
-        <span class="badge bg-success" style="font-size:0.85rem;">sinh viên</span>
-      </div>
-      <div class="d-flex flex-column gap-2 ms-auto">
-        <div class="d-flex gap-2">
-          <a href="Setprofile"><button class="btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Chỉnh sửa Hồ sơ</button></a>
-        </div>
-        <div class="d-flex gap-4 mt-2 justify-content-end">
-          <div class="text-center">
-            <div class="fw-bold">0</div>
-            <div class="text-secondary" style="font-size:0.9rem;">ĐÃ TẠO</div>
-          </div>
-          <div class="text-center">
-            <div class="fw-bold">0</div>
-            <div class="text-secondary" style="font-size:0.9rem;">ĐÃ HOÀN THÀNH</div>
-          </div>
-          <div class="text-center">
-            <div class="fw-bold">0</div>
-            <div class="text-secondary" style="font-size:0.9rem;">ĐÃ ĐÁNH GIÁ</div>
-          </div>
-        </div>
-      </div>
+  <!-- Ảnh đại diện -->
+    <img th:src="${user.imgurl != null and user.imgurl.startsWith('http')} ? 
+             ${user.imgurl} : 
+             @{/images/default-avatar.jpg}" 
+     alt="avatar" class="rounded-circle" 
+     style="width:96px;height:96px;object-fit:cover;">
+
+
+  <div class="flex-grow-1">
+    <!-- Tên và giới tính -->
+    <div class="d-flex align-items-center gap-2 mb-1">
+      <span class="fw-semibold fs-5" th:text="${user.username}">Tên người dùng</span>
+      
     </div>
+
+    <!-- Email -->
+    <div class="text-secondary mb-2" style="font-size:0.95rem;" th:text="${user.email}">
+      email@example.com
+    </div>
+
+    <!-- Vai trò -->
+    <span class="badge bg-success" style="font-size:0.85rem;" >
+      sinh viên
+    </span>
+  </div>
+</div>
+
     <!-- Tabs -->
     <div class="bg-white rounded-3 shadow-sm px-4 pt-3 pb-0 mb-4">
       <nav class="d-flex gap-5 border-bottom" style="margin-bottom:-1px;">
@@ -76,7 +74,7 @@
         </a>
       </nav>
     </div>
-    <!-- Let's Create Section -->
+    
     <div class="bg-white rounded-3 shadow-sm p-5 text-center">
       <img src="Anh/emptystate-letscreate-v5.png" alt="Create Quiz" class="illustration-img mb-4">
       <div class="mb-3 text-secondary" style="font-size:1rem;">Tạo quiz hoặc bài học đầu tiên của bạn</div>

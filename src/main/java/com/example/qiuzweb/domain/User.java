@@ -92,5 +92,14 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    
+    @Override
+public String toString() {
+    return "User{" +
+           "userimg=" + imgurl +
+           ", username='" + username + '\'' +
+           ", email='" + email + '\'' +
+           ", role=" + role +
+           '}';
+
+}
 }

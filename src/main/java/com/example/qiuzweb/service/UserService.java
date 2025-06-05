@@ -31,6 +31,7 @@ public UserService(UserRepository userRepository, PasswordEncoder passwordEncode
         return this.userRepository.findByEmail(email).orElse(null);
     }
 
+
     public User registerUser(UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());

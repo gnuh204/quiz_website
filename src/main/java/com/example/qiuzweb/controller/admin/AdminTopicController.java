@@ -11,7 +11,7 @@ import java.nio.file.*;
 import com.example.qiuzweb.domain.Category;
 
 @Controller
-@RequestMapping("/topics")
+@RequestMapping("admin/topics")
 public class AdminTopicController {
 
   
@@ -21,12 +21,9 @@ public class AdminTopicController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/create")
-    public String showCreateForm() {
-        return "POST client/layout/createnewcategory"; 
-    }
+   
 
-    @PostMapping("/save")
+    @PostMapping("admin/save")
     public String saveTopic(@RequestParam("title") String title,
                             @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 
@@ -47,7 +44,7 @@ public class AdminTopicController {
         return "redirect:/topics/list";
     }
 
-    @GetMapping("/list")
+    @GetMapping("admin/list")
     public String listTopics(Model model) {
         model.addAttribute("categorys",categoryService.allCategory());
         return "admin/topic-list";

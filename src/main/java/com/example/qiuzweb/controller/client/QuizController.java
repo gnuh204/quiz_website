@@ -1,15 +1,17 @@
 package com.example.qiuzweb.controller.client;
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 import com.example.qiuzweb.domain.Category;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.nio.file.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.qiuzweb.service.CategoryService;
 import com.example.qiuzweb.service.QuizService;
@@ -34,7 +36,7 @@ public class QuizController {
         model.addAttribute("categories", categories);
         return "client/createQuizFragment";
     }
-        @PostMapping("/quizzes/save")
+     @PostMapping("/quizzes/save")
     public String saveQuiz(@RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("categoryId") Long categoryId,
@@ -53,6 +55,27 @@ public class QuizController {
     @GetMapping("/createNewCategory")
     public String getMethodName() {
         return "client/createnewcategory";
+    }
+    
+    @PostMapping("topics/save")
+    public String saveTopic(@RequestParam("title") String title,
+                            @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+
+        String fileName = imageFile.getOriginalFilename();
+        Path uploadPath = Paths.get("src/main/resources/static/images/");
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        Category topic = new Category();
+        topic.setName(title);
+        topic.setImageUrl(fileName);
+        categoryService.saveCategory(topic);
+
+        return "redirect:/NewCategory";
     }
 
     // chon Tao Category
