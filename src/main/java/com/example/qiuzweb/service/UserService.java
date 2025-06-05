@@ -60,8 +60,13 @@ public void deleteUserById(Long id) {
     userRepository.deleteById(id);
 }
 
-public User updateuser(User user) {
-    return userRepository.save(user);
-
-}
+public boolean updatePasswordByEmail(String email, String newPassword) {
+        return userRepository.findByEmail(email)
+            .map(user -> {
+                user.setPasswordHash(passwordEncoder.encode(newPassword));
+                userRepository.save(user);
+                return true;
+            })
+            .orElse(false);
+    }
 }
