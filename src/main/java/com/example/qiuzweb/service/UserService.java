@@ -60,4 +60,8 @@ public void deleteUserById(Long id) {
     userRepository.deleteById(id);
 }
 
+public User updateuser(User user) {
+    return userRepository.save(user);
+
+}
 }

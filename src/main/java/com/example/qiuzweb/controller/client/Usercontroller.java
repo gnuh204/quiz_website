@@ -2,6 +2,7 @@ package com.example.qiuzweb.controller.client;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +21,10 @@ import jakarta.validation.Valid;
 @Controller
 public class Usercontroller {
     private final UserService userService;
+     private final PasswordEncoder passwordEncoder;
 
-    public Usercontroller(UserService userService) {
+    public Usercontroller(UserService userService, PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
 
@@ -95,10 +98,46 @@ public String loginPage(@RequestParam(value = "logout", required = false) String
     public String setting() {
         return "client/settingFragment";
     }
+    //Doi mat khau
+@PostMapping("/setting/password")
+public String updatePassword(@RequestParam("email") String email,
+                             @RequestParam("newpass") String newpass,
+                             @RequestParam("renewpass") String renewpass,
+                             Model model) {
+
+    User user = userService.findByEmail(email);
+
+    if (user == null) {
+        model.addAttribute("errorMessage", "Không tìm thấy người dùng!");
+        return "client/settingFragment";
+    }
+
+    UserDTO userDTO = new UserDTO();
+    userDTO.setEmail(user.getEmail());
+    userDTO.setUsername(user.getUsername());
+    model.addAttribute("user", userDTO);
+
+    if (!newpass.equals(renewpass)) {
+        model.addAttribute("passwordError", "Mật khẩu nhập lại không khớp!");
+        return "client/settingFragment";
+    }
+
+    if (newpass.length() < 6) {
+        model.addAttribute("passwordError", "Mật khẩu phải có ít nhất 6 ký tự!");
+        return "client/settingFragment";
+    }
+
+    user.setPasswordHash(passwordEncoder.encode(newpass));
+    userService.updateuser(user);
+
+    model.addAttribute("successMessage", "Cập nhật mật khẩu thành công!");
+    return "client/settingFragment";
+}
 
     // chinh su ho so
     @GetMapping("/Setprofile")
     public String setprofile(Model model) {
         return "client/setprofileFragment";
     }
+
 }
