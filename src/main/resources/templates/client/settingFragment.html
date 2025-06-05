@@ -34,17 +34,11 @@
                                 <div class="fw-semibold mb-2"><i class="bi bi-person-circle me-2"></i>Tài khoản</div>
                                 <div class="mb-2">
                                     <label for="email" class="form-label mb-1">E-mail</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Nhập email"
-                                        value="khanh11122004@gmail.com">
-                                </div>
+                                    <div  th:text="${user.email}">khanh11122004@gmail.com</div>
                                 <div class="mb-3">
                                     <label for="fullname" class="form-label mb-1">Tên tài khoản</label>
-                                    <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên"
-                                        value="Đức Khánh">
+                                    <div th:text="${user.username}">Đức Khánh</div>
                                 </div>
-                                <button type="submit" class="btn w-100 fw-semibold text-white"
-                                    style="background:#8d5fd3;">Lưu thay đổi
-                                </button>
                                 <hr>
                                 <div>
                                     <div class="fw-semibold mb-2"><i class="bi bi-lock-fill me-2"></i>Mật khẩu</div>

@@ -99,7 +99,6 @@ public String loginPage(@RequestParam(value = "logout", required = false) String
     // chinh su ho so
     @GetMapping("/Setprofile")
     public String setprofile(Model model) {
-        model.addAttribute("user", new UserDTO());
         return "client/setprofileFragment";
     }
 }

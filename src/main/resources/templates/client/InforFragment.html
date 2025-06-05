@@ -31,11 +31,12 @@
     <!-- Profile Card -->
     <div class="bg-white rounded-3 shadow-sm p-4 d-flex align-items-center mb-4" style="gap:32px;">
   <!-- Ảnh đại diện -->
-    <img th:src="${user.imgurl != null and user.imgurl.startsWith('http')} ? 
-             ${user.imgurl} : 
-             @{/images/default-avatar.jpg}" 
+    <img th:src="${user != null and user.imgurl != null and user.imgurl.startsWith('http') ? 
+              user.imgurl : 
+              '/images/default-avatar.jpg'}"
      alt="avatar" class="rounded-circle" 
-     style="width:96px;height:96px;object-fit:cover;">
+     style="width:96px;height:96px;object-fit:cover;" />
+
 
 
   <div class="flex-grow-1">
@@ -58,6 +59,9 @@
 </div>
 
     <!-- Tabs -->
+     <div class="d-flex gap-2">
+          <a href="Setprofile"><button class="btn btn-outline-secondary btn-sm"><i class="fas fa-edit"></i> Chỉnh sửa Hồ sơ</button></a>
+        </div>
     <div class="bg-white rounded-3 shadow-sm px-4 pt-3 pb-0 mb-4">
       <nav class="d-flex gap-5 border-bottom" style="margin-bottom:-1px;">
         <a class="tab-nav-link tab-active pb-2 text-purple-700 text-decoration-none" href="#" style="font-weight:600;position:relative;">
