@@ -1,15 +1,19 @@
 package com.example.qiuzweb.controller.client;
 
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.security.Principal;
 import java.util.List;
 import com.example.qiuzweb.domain.Category;
+import com.example.qiuzweb.domain.Quiz;
+import com.example.qiuzweb.domain.User;
+
 import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.*;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,20 +41,27 @@ public class QuizController {
         return "client/createQuizFragment";
     }
      @PostMapping("/quizzes/save")
-    public String saveQuiz(@RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("categoryId") Long categoryId,
-            @RequestParam("timeLimitMinutes") Integer timeLimitMinutes,
-            @RequestParam("imageFile") MultipartFile imageFile,
-            Principal principal) {
-        quizService.saveQuiz(title, description, categoryId, timeLimitMinutes, imageFile, principal);
-        return "redirect:/Library";
-    }
+public String saveQuiz(@RequestParam("title") String title,
+                       @RequestParam("description") String description,
+                       @RequestParam("categoryId") Long categoryId,
+                       @RequestParam("timeLimitMinutes") Integer timeLimitMinutes,
+                       @RequestParam("imageFile") MultipartFile imageFile,
+                       Authentication authentication) {
+    quizService.saveQuiz(title, description, categoryId, timeLimitMinutes, imageFile, authentication);
+    return "redirect:/Library";
+}
+
     //thu vien Quiz
     @GetMapping("/Library")
-    public String ShowLibrary() {
-        return "client/librarFragment";
+   public String showUserQuizzes(Model model, @ModelAttribute("user") User currentUser) {
+    if (currentUser == null) {
+        return "redirect:/login"; // Hoặc xử lý khi chưa đăng nhập
     }
+    List<Quiz> quizzes = quizService.getQuizzesByCurrentUser(currentUser);
+    model.addAttribute("quizzes", quizzes);
+    return "client/librarFragment";
+    }
+
       // tao category
     @GetMapping("/createNewCategory")
     public String getMethodName() {
@@ -89,7 +100,8 @@ public class QuizController {
     public String QuizProcess() {
         return "client/progressFragment";
     }
-  
+    
+
 
 
 }

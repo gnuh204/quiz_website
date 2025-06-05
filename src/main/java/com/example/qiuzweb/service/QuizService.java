@@ -2,7 +2,13 @@ package com.example.qiuzweb.service;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,19 +35,37 @@ public class QuizService {
         this.userRepository = userRepository;
     }
 
+    private String getEmailFromAuthentication(Authentication authentication) {
+        if (authentication instanceof UsernamePasswordAuthenticationToken) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            return userDetails.getUsername(); // với Local, username thường là email
+        } else if (authentication instanceof OAuth2AuthenticationToken) {
+            OAuth2User oAuth2User = ((OAuth2AuthenticationToken) authentication).getPrincipal();
+            return oAuth2User.getAttribute("email");
+        } else {
+            throw new RuntimeException("Không xác định được loại đăng nhập");
+        }
+    }
+
     public void saveQuiz(String title,
             String description,
             Long categoryId,
             Integer timeLimitMinutes,
             MultipartFile imageFile,
-            Principal principal) {
+            Authentication authentication) {
 
-        String email = principal.getName();
+        // ✅ Lấy email từ authentication bất kể là Local hay OAuth2
+        String email = getEmailFromAuthentication(authentication);
+
+        // ✅ Tìm user trong database
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
 
+        // ✅ Tìm category
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy chủ đề"));
+
+        // ✅ Lưu ảnh
         String imgurl = null;
         try {
             String fileName = imageFile.getOriginalFilename();
@@ -56,6 +80,7 @@ public class QuizService {
             throw new RuntimeException("Lỗi khi lưu ảnh", e);
         }
 
+        // ✅ Tạo quiz
         Quiz quiz = new Quiz();
         quiz.setTitle(title);
         quiz.setDescription(description);
@@ -64,6 +89,16 @@ public class QuizService {
         quiz.setImageUrl(imgurl);
         quiz.setCreatedAt(LocalDateTime.now());
         quiz.setCreatedBy(user);
+
         quizRepository.save(quiz);
+    }
+
+    public List<Quiz> getQuizzesByCurrentUser(User currentUser) {
+        return quizRepository.findByCreatedBy(currentUser);
+    }
+
+    public Quiz getQuizByIdAndUser(Long quizId, User currentUser) {
+        return quizRepository.findByQuizIdAndCreatedBy(quizId, currentUser)
+                .orElseThrow(() -> new RuntimeException("Quiz not found"));
     }
 }
