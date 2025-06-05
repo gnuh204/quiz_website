@@ -34,30 +34,37 @@
                                 <div class="fw-semibold mb-2"><i class="bi bi-person-circle me-2"></i>Tài khoản</div>
                                 <div class="mb-2">
                                     <label for="email" class="form-label mb-1">E-mail</label>
-                                    <div  th:text="${user.email}">khanh11122004@gmail.com</div>
-                                <div class="mb-3">
-                                    <label for="fullname" class="form-label mb-1">Tên tài khoản</label>
-                                    <div th:text="${user.username}">Đức Khánh</div>
-                                </div>
-                                <hr>
-                                <div>
-                                    <div class="fw-semibold mb-2"><i class="bi bi-lock-fill me-2"></i>Mật khẩu</div>
-                                    <div class="mb-2">
-                                        <label for="newpass" class="form-label mb-1">Mật khẩu mới (ít nhất 6 ký
-                                            tự)</label>
-                                        <input type="password" class="form-control" id="newpass"
-                                            placeholder="Nhập mật khẩu mới">
-                                    </div>
+                                    <div th:text="${user.email}">khanh11122004@gmail.com</div>
                                     <div class="mb-3">
-                                        <label for="renewpass" class="form-label mb-1">Mật khẩu mới một lần nữa</label>
-                                        <input type="password" class="form-control" id="renewpass"
-                                            placeholder="Nhập lại mật khẩu mới">
+                                        <label for="fullname" class="form-label mb-1">Tên tài khoản</label>
+                                        <div th:text="${user.username}">Đức Khánh</div>
                                     </div>
-                                    <button type="submit" class="btn w-100 fw-semibold text-white"
-                                        style="background:#8d5fd3;" disabled>
-                                        Cập nhật mật khẩu</button>
+                                    <hr>
+                                    <form th:action="@{/setting/password}" method="post">
+                                        <input type="hidden" name="email" th:value="${user.email}" />
+
+                                        <div class="fw-semibold mb-2"><i class="bi bi-lock-fill me-2"></i>Mật khẩu</div>
+
+                                        <div class="mb-2">
+                                            <label for="newpass" class="form-label mb-1">Mật khẩu mới (ít nhất 6 ký
+                                                tự)</label>
+                                            <input type="password" class="form-control" name="newpass"
+                                                placeholder="Nhập mật khẩu mới">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="renewpass" class="form-label mb-1">Mật khẩu mới một lần
+                                                nữa</label>
+                                            <input type="password" class="form-control" name="renewpass"
+                                                placeholder="Nhập lại mật khẩu mới">
+                                        </div>
+
+                                        <button type="submit" class="btn w-100 fw-semibold text-white"
+                                            style="background:#8d5fd3;">
+                                            Cập nhật mật khẩu
+                                        </button>
+                                    </form>
                                 </div>
-                            </div>
                         </form>
                         <div class="mt-5 pt-3 border-top">
                             <div class="mb-2 fw-semibold text-dark">
