@@ -25,7 +25,17 @@ public class User {
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
     public enum Role { USER, ADMIN }
+    @Lob
     private String imgurl;
+    private String provider;
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
     public Long getUserId() {
         return userId;
     }

@@ -37,6 +37,7 @@ public UserService(UserRepository userRepository, PasswordEncoder passwordEncode
         user.setEmail(userDTO.getEmail());
         user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
         user.setRole(User.Role.USER);
+        user.setProvider("local");
         return userRepository.save(user);
     }
 
@@ -46,6 +47,7 @@ public UserService(UserRepository userRepository, PasswordEncoder passwordEncode
         user.setEmail(userDTO.getEmail());
         user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
         user.setRole(userDTO.getRole());
+         user.setProvider("local");
         return userRepository.save(user);
     }
 

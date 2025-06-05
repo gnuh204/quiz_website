@@ -1,5 +1,6 @@
 package com.example.qiuzweb.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,12 +12,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.example.qiuzweb.service.CustomOAuth2UserService;
 import com.example.qiuzweb.service.CustomUserDetailsService;
 import com.example.qiuzweb.service.UserService;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService; 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -52,6 +56,13 @@ public class SecurityConfiguration {
                 .defaultSuccessUrl("/", true) 
                 .failureUrl("/login?error=true")
                 .permitAll()
+            )
+             .oauth2Login(oauth2 -> oauth2
+                .loginPage("/login")
+                .userInfoEndpoint(userInfo -> userInfo
+                    .userService(customOAuth2UserService) // xử lý dữ liệu trả về từ Google
+                )
+                .defaultSuccessUrl("/", true)
             )
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout=true")
