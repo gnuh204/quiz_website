@@ -73,7 +73,7 @@ public String saveQuiz(@RequestParam("title") String title,
                             @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 
         String fileName = imageFile.getOriginalFilename();
-        Path uploadPath = Paths.get("src/main/resources/static/images/");
+        Path uploadPath = Paths.get("src/main/resources/static/images/topicimages");
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }

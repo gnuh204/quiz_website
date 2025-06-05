@@ -69,7 +69,7 @@ public class QuizService {
         String imgurl = null;
         try {
             String fileName = imageFile.getOriginalFilename();
-            Path uploadPath = Paths.get("src/main/resources/static/images/");
+            Path uploadPath = Paths.get("src/main/resources/static/images/quizImages");
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
