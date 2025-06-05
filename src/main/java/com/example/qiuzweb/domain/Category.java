@@ -11,6 +11,24 @@ public class Category {
     private String name;
     
     private String imageUrl; 
+    private String author;
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getQuestionCount() {
+        return questionCount;
+    }
+
+    public void setQuestionCount(int questionCount) {
+        this.questionCount = questionCount;
+    }
+
+    private int questionCount;
 
     public Long getCategoryId() {
         return categoryId;

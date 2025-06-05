@@ -2,6 +2,7 @@ package com.example.qiuzweb.service;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,23 +19,29 @@ import java.nio.file.*;
 
 @Service
 public class QuizService {
+
     private final QuizRepository quizRepository;
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
 
     public QuizService(QuizRepository quizRepository, UserRepository userRepository,
-            CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+                       CategoryRepository categoryRepository) {
         this.quizRepository = quizRepository;
         this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
     }
 
+    // ✅ Hàm lấy tất cả bài quiz
+ public List<Quiz> getAllQuizzes() {
+    return quizRepository.findAllWithCreatedBy();
+}
+
     public void saveQuiz(String title,
-            String description,
-            Long categoryId,
-            Integer timeLimitMinutes,
-            MultipartFile imageFile,
-            Principal principal) {
+                         String description,
+                         Long categoryId,
+                         Integer timeLimitMinutes,
+                         MultipartFile imageFile,
+                         Principal principal) {
 
         String email = principal.getName();
         User user = userRepository.findByEmail(email)

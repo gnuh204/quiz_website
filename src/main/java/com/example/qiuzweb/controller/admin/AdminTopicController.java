@@ -27,29 +27,36 @@ public class AdminTopicController {
     }
 
     @PostMapping("/save")
-    public String saveTopic(@RequestParam("title") String title,
-                            @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+public String saveTopic(@RequestParam("title") String title,
+                        @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 
-        String fileName = imageFile.getOriginalFilename();
-        Path uploadPath = Paths.get("src/main/resources/static/images/");
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
+    String fileName = imageFile.getOriginalFilename();
 
-        Path filePath = uploadPath.resolve(fileName);
-        Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-        Category topic = new Category();
-        topic.setName(title);
-        topic.setImageUrl(fileName);
-        categoryService.saveCategory(topic);
-
-        return "redirect:/topics/list";
+    // Thư mục images
+    Path imagesPath = Paths.get("src/main/resources/static/images/");
+    if (!Files.exists(imagesPath)) {
+        Files.createDirectories(imagesPath);
     }
+    Path imagesFilePath = imagesPath.resolve(fileName);
+    Files.copy(imageFile.getInputStream(), imagesFilePath, StandardCopyOption.REPLACE_EXISTING);
 
-    @GetMapping("/list")
-    public String listTopics(Model model) {
-        model.addAttribute("categorys",categoryService.allCategory());
-        return "admin/topic-list";
-    }
+    // // Thư mục uploads
+    // Path uploadsPath = Paths.get("src/main/resources/static/uploads/");
+    // if (!Files.exists(uploadsPath)) {
+    //     Files.createDirectories(uploadsPath);
+    // }
+    // Path uploadsFilePath = uploadsPath.resolve(fileName);
+    // // Lấy lại InputStream vì fileInputStream chỉ đọc được 1 lần
+    // // Nên phải đọc lại từ MultipartFile
+    // Files.copy(imageFile.getInputStream(), uploadsFilePath, StandardCopyOption.REPLACE_EXISTING);
+
+    // Tạo và lưu category, URL vẫn lưu đến images
+    Category topic = new Category();
+    topic.setName(title);
+    topic.setImageUrl("/images/" + fileName);
+
+    categoryService.saveCategory(topic);
+
+    return "redirect:/topics/list";
+}
 }

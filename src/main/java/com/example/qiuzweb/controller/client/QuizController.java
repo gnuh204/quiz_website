@@ -3,6 +3,7 @@ package com.example.qiuzweb.controller.client;
 import java.security.Principal;
 import java.util.List;
 import com.example.qiuzweb.domain.Category;
+import com.example.qiuzweb.domain.Quiz;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +47,10 @@ public class QuizController {
     }
     //thu vien Quiz
     @GetMapping("/Library")
-    public String ShowLibrary() {
+    public String showLibrary(Model model) {
+        List<Quiz> quizzes = quizService.getAllQuizzes();
+        model.addAttribute("quizzes", quizzes);
+        System.out.println(quizzes);
         return "client/librarFragment";
     }
       // tao category

@@ -28,25 +28,31 @@
               <div class="col-12 col-md-10 col-lg-8">
                 <div class="bg-white rounded-3 shadow-sm p-5 text-center">
                   <!-- Danh sách dữ liệu báo cáo -->
-                  <div class="mb-4">
-                    <div class="border rounded-3 p-3 bg-light d-flex align-items-center gap-3">
-                      <img src="Anh/7a14e25c1c033ea1b7182eea6d54d87e.jpg" alt="Ảnh bài học" class="rounded-3"
-                        style="width: 150px; height: 150px; object-fit: cover;">
-                      <div class="d-flex flex-column align-items-start gap-2">
-                        <div class="fw-semibold"><span class="text-primary">Giải phương trình bậc hai</span>
-                        </div>
-                        <div>Chủ đề: <span class="fw-semibold">Toán học</span></div>
-                        <div>Tác giả: <span class="fw-semibold">Đức Khánh</span></div>
-                        <div>Số câu đã tạo: <span class="fw-semibold text-success">15</span></div>
-                      </div>
-                      <div class="ms-auto">
-                        <button class="btn btn-outline-secondary">Xem chi tiết</button>
-                      </div>
-                      <div>
-                        <button class="btn btn-outline-danger">Xóa</button>
-                      </div>
-                    </div>
-                  </div>
+                  <!-- Danh sách dữ liệu báo cáo -->
+<div class="mb-4" th:each="quiz : ${quizzes}">
+  <div class="border rounded-3 p-3 bg-light d-flex align-items-center gap-3">
+    <img th:if="${quiz.imageUrl != null}" 
+     th:src="@{'/images/' + ${quiz.imageUrl}}" 
+     alt="Ảnh bài học" class="rounded-3"
+     style="width: 150px; height: 150px; object-fit: cover;" />
+
+    <div class="d-flex flex-column align-items-start gap-2">
+      <div class="fw-semibold">
+        <span class="text-primary" th:text="${quiz.title}">Tên bài học</span>
+      </div>
+      <div>Mô tả: <span class="fw-semibold" th:text="${quiz.description}">Mô tả bài học</span></div>
+      <div>Chủ đề: <span class="fw-semibold" th:text="${quiz.category.name}">Chủ đề</span></div>
+      <div>Tác giả: <span class="fw-semibold" th:text="${quiz.createdBy.name}">Tác giả</span></div>
+      <div>Thời gian: <span class="fw-semibold text-success" th:text="${quiz.timeLimitMinutes} + ' phút'"></span></div>
+    </div>
+    <div class="ms-auto d-flex flex-column gap-2">
+      <a th:href="@{'/quiz/detail/' + ${quiz.id}}" class="btn btn-outline-secondary">Xem chi tiết</a>
+      <a th:href="@{'/quiz/delete/' + ${quiz.id}}" class="btn btn-outline-danger"
+         onclick="return confirm('Bạn có chắc muốn xóa quiz này không?')">Xóa</a>
+    </div>
+  </div>
+</div>
+
                   <!-- Thông báo không có dữ liệu -->
                   <hr>
                   <div class="fw-semibold fs-5 mb-2">Đó là tất cả về dữ liệu!</div>

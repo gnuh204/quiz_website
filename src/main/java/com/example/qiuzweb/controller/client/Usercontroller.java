@@ -8,16 +8,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.qiuzweb.domain.Dto.UserDTO;
+import com.example.qiuzweb.domain.Quiz;
 import com.example.qiuzweb.service.UserService;
+import com.example.qiuzweb.service.CategoryService;
+import com.example.qiuzweb.service.QuizService;
+
+import java.util.List;
 
 import jakarta.validation.Valid;
 
 @Controller
 public class Usercontroller {
-    private final UserService userService;
 
-    public Usercontroller(UserService userService) {
+    private final UserService userService;
+    private final CategoryService categoryService;
+    private final QuizService quizService;
+
+    // ✅ Constructor đầy đủ cả 3 service
+    public Usercontroller(UserService userService, CategoryService categoryService, QuizService quizService) {
         this.userService = userService;
+        this.categoryService = categoryService;
+        this.quizService = quizService;
     }
 
     @GetMapping("/")
@@ -38,7 +49,6 @@ public class Usercontroller {
 
     @PostMapping("/register")
     public String processRegister(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult result, Model model) {
-
         if (result.hasErrors()) {
             return "client/signup";
         }
@@ -64,10 +74,10 @@ public class Usercontroller {
         return "client/settingFragment";
     }
 
-    // chinh su ho so
     @GetMapping("/Setprofile")
     public String setprofile(Model model) {
         model.addAttribute("user", new UserDTO());
         return "client/setprofileFragment";
     }
+
 }
