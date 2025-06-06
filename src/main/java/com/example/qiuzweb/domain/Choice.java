@@ -38,6 +38,7 @@ public class Choice {
     public void setIsCorrect(Boolean isCorrect) {
         this.isCorrect = isCorrect;
     }
+    
 
 }
 

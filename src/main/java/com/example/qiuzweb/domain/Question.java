@@ -1,5 +1,8 @@
 package com.example.qiuzweb.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +23,8 @@ public class Question {
     private QuestionType questionType;
 
     public enum QuestionType { SINGLE, MULTIPLE }
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Choice> choices = new ArrayList<>();
 
     public Long getQuestionId() {
         return questionId;
@@ -59,6 +64,14 @@ public class Question {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<Choice> getChoices() {
+        return choices;
+    }
+
+    public void setChoices(List<Choice> choices) {
+        this.choices = choices;
     }
 
     

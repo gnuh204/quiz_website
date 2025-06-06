@@ -42,8 +42,9 @@
                       </div>
 
                       <div class="ms-auto">
-                        <a th:href="@{/quizzes/{id}(id=${quiz.quizId})}" class="btn btn-outline-secondary">Xem chi
-                          tiết</a>
+                        <a th:href="@{/quizzes/detail/{id}(id=${quiz.quizId})}" class="btn btn-outline-secondary">
+                          Xem chi tiết
+                        </a>
                       </div>
                       <div>
                         <form th:action="@{/quizzes/{id}/delete(id=${quiz.quizId})}" method="post">

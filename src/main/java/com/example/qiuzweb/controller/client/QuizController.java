@@ -3,28 +3,41 @@ package com.example.qiuzweb.controller.client;
 import java.io.IOException;
 import java.util.List;
 import com.example.qiuzweb.domain.Category;
+import com.example.qiuzweb.domain.Question;
 import com.example.qiuzweb.domain.Quiz;
+import com.example.qiuzweb.domain.QuizComment;
 import com.example.qiuzweb.domain.User;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.*;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.qiuzweb.service.CategoryService;
+import com.example.qiuzweb.service.QuestionService;
+import com.example.qiuzweb.service.QuizCommentService;
 import com.example.qiuzweb.service.QuizService;
+
+
 @Controller
 public class QuizController {
 
     private final QuizService quizService;
     private final CategoryService categoryService;
-    public QuizController(QuizService quizService, CategoryService categoryService) {
+    private final QuestionService questionService;
+    private final QuizCommentService commentService;
+    public QuizController(QuizService quizService, CategoryService categoryService,
+            QuestionService questionService, QuizCommentService questionCommentService) {
+        this.commentService = questionCommentService;
+        this.questionService = questionService;
         this.categoryService = categoryService;
         this.quizService = quizService;
     }
@@ -61,6 +74,28 @@ public String saveQuiz(@RequestParam("title") String title,
     model.addAttribute("quizzes", quizzes);
     return "client/librarFragment";
     }
+
+    @PostMapping("/quizzes/{id:\\d+}/delete")
+public String deleteQuizString(@PathVariable("id") Long id, @ModelAttribute("user") User currentUser) {
+    quizService.deleteQuiz(id, currentUser); // Xóa quiz theo ID và người dùng hiện tại
+    return "redirect:/Library"; // Chuyển hướng về trang thư viện sau khi xóa quiz
+}
+
+
+    // xem chi tiet Quiz
+    @GetMapping("/quizzes/detail/{id:\\d+}") 
+public String viewQuizDetails(@PathVariable("id") Long id, Model model) {
+    Quiz quiz = quizService.getQuizById(id); 
+    List<Question> questions = questionService.getQuestionsByQuizId(id);
+
+    model.addAttribute("quiz", quiz);
+    model.addAttribute("questions", questions);
+
+    return "client/quizdetailFragment";
+}
+
+
+
 
       // tao category
     @GetMapping("/createNewCategory")
@@ -101,7 +136,40 @@ public String saveQuiz(@RequestParam("title") String title,
         return "client/progressFragment";
     }
     
+    // Hien thị danh sách quiz cua category
+@GetMapping("/category/{id:\\d+}")
+public String showCategoryDetail(@PathVariable("id") Long id, Model model) {
+    Category category = categoryService.getCategoryById(id);
+    List<Quiz> quizzes = quizService.getQuizzesByCategoryId(id);
+    model.addAttribute("category", category);
+    model.addAttribute("quizzes", quizzes);
+    return "client/quizlistFragment";
+}
 
+// Hien thi danh gia
+@GetMapping("/quizzes/rate/{id:\\d+}")
+public String rateQuiz(@PathVariable("id") Long id, Model model, @ModelAttribute("user") User currentUser) {
+    Quiz quiz = quizService.getQuizById(id);
+    model.addAttribute("quiz", quiz);
+    List<QuizComment> comments = commentService.getCommentsByQuiz(quiz);
+        model.addAttribute("comments", comments);
+        model.addAttribute("user", currentUser);
+    return "client/quesinforFragment";
 
+}
+@PostMapping("/quizzes/{id:\\d+}/comments")
+    public String postComment(@PathVariable("id") Long id,
+                              @RequestParam("comment") String commentText,
+                              @ModelAttribute("user") User currentUser) {
+        Quiz quiz = quizService.getQuizById(id);
+        commentService.addComment(quiz, currentUser, commentText);
+        return "redirect:/quizzes/rate/" + id; 
+    }
+
+    @GetMapping("/comments/delete/{id:\\d+}")
+public String deleteComment(@PathVariable("id") Long commentId, @ModelAttribute("user") User currentUser) {
+    commentService.deleteIfOwner(commentId, currentUser);
+    return "redirect:/quizzes/rate/" + commentService.findQuizIdByCommentId(commentId);
+}
 
 }

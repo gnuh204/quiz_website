@@ -7,5 +7,5 @@ import com.example.qiuzweb.domain.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    // Có thể thêm method custom nếu cần
+    Category findByCategoryId(Long categoryId);
 }

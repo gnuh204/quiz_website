@@ -15,4 +15,6 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
     
     // Tìm quiz theo ID và người tạo (để kiểm tra quyền sở hữu)
     Optional<Quiz> findByQuizIdAndCreatedBy(Long quizId, User user);
+    List<Quiz> findByCategoryCategoryId(Long categoryId);
+    Quiz findByQuizId(Long quizId);
 } 

@@ -1,5 +1,7 @@
 package com.example.qiuzweb.controller.client;
 
+import java.util.Locale.Category;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.qiuzweb.domain.User;
 import com.example.qiuzweb.domain.Dto.UserDTO;
+import com.example.qiuzweb.service.CategoryService;
 import com.example.qiuzweb.service.UserService;
 
 import jakarta.validation.Valid;
@@ -22,9 +25,12 @@ import jakarta.validation.Valid;
 @Controller
 public class Usercontroller {
     private final UserService userService;
+    private final CategoryService categoryService;
   
 
-    public Usercontroller(UserService userService, PasswordEncoder passwordEncoder) {
+    public Usercontroller(UserService userService, PasswordEncoder passwordEncoder,
+            CategoryService categoryService) {
+        this.categoryService = categoryService;
         this.userService = userService;
     }
 
@@ -47,7 +53,7 @@ public class Usercontroller {
                 System.out.println("User: " + user);
             }
         }
-
+        model.addAttribute("categorys", categoryService.allCategory());
         model.addAttribute("user", user);
         return "client/topicfragment";
     }

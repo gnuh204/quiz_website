@@ -1,13 +1,15 @@
 package com.example.qiuzweb.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "quizzes")
 public class Quiz {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long quizId;
 
     private String title;
@@ -35,6 +37,16 @@ public class Quiz {
     private Boolean isRandomOrder;
 
     private LocalDateTime createdAt;
+    @OneToMany(mappedBy = "quiz")
+    private List<Question> questions;
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
 
     public Long getQuizId() {
         return quizId;
@@ -99,5 +111,20 @@ public class Quiz {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Quiz{" +
+                "quizId=" + quizId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", createdBy=" + createdBy +
+                ", category=" + category +
+                ", timeLimitMinutes=" + timeLimitMinutes +
+                ", isRandomOrder=" + isRandomOrder +
+                ", createdAt=" + createdAt +
+                '}';
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.example.qiuzweb.service;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -101,4 +100,18 @@ public class QuizService {
         return quizRepository.findByQuizIdAndCreatedBy(quizId, currentUser)
                 .orElseThrow(() -> new RuntimeException("Quiz not found"));
     }
+    public Quiz getQuizById(Long quizId) {
+        return quizRepository.findByQuizId(quizId);
+    }
+    public void deleteQuiz(Long quizId, User currentUser) {
+        Quiz quiz = getQuizByIdAndUser(quizId, currentUser);
+        if (quiz != null) {
+            quizRepository.delete(quiz);
+        } else {
+            throw new RuntimeException("Quiz not found or you do not have permission to delete it");
+        }
+    }
+    public List<Quiz> getQuizzesByCategoryId(Long categoryId) {
+    return quizRepository.findByCategoryCategoryId(categoryId);
+}
 }

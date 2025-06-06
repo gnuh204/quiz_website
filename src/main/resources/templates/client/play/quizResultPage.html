@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Kết quả bài Quiz</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #8e2de2, #4a00e0);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            text-align: center;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .result-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 28px;
+            margin: 20px 0;
+        }
+
+        .quiz-title {
+            font-size: 22px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            background-color: #ffffff;
+            color: #4a00e0;
+            font-size: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="result-box">
+    <h1>Kết quả bài kiểm tra</h1>
+    <div class="quiz-title" th:text="'Quiz: ' + ${quizTitle}">Quiz: Kiến thức lịch sử</div>
+    <div class="score" th:text="'Điểm của bạn: ' + ${finalScore} + ' / ' + ${totalQuestions}">
+        Điểm của bạn: 5 / 10
+    </div>
+    <a th:href="@{/quizzes}" class="btn">Quay lại danh sách Quiz</a>
+</div>
+
+</body>
+</html>
