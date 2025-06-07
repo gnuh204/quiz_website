@@ -69,4 +69,5 @@ public boolean updatePasswordByEmail(String email, String newPassword) {
             })
             .orElse(false);
     }
+
 }

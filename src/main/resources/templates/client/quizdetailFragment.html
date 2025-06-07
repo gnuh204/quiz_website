@@ -4,137 +4,278 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quizizz Student</title>
+    <title>Quiz Manager | <span th:text="${quiz.title}"></span></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #a78bfa;
+            --secondary: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --light-bg: #f9fafb;
+            --border-color: #e5e7eb;
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+        }
+
+        .quiz-header {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .quiz-header:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-image {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 3px solid white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-number {
+            background-color: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+
+        .choice-item {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .choice-item.correct {
+            background-color: #f0fdf4;
+            border-color: var(--success);
+            position: relative;
+        }
+
+        .choice-item.correct::after {
+            content: "✓";
+            color: var(--success);
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .text-primary {
+            color: var(--primary) !important;
+        }
+
+        .badge-category {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 
-<body class="bg-white text-dark">
+<body class="bg-light">
     <div class="d-flex min-vh-100">
         <!-- Sidebar -->
         <div th:replace="~{client/layout/sidebar :: sidebar}"></div>
+
         <!-- Main content -->
-        <main class="flex-grow-1 d-flex flex-column ">
+        <main class="flex-grow-1 d-flex flex-column">
             <!-- Top bar -->
             <div th:replace="~{client/layout/topbar :: topbar}"></div>
-            <!-- Content grid -->
-            <section class="flex-grow-1 overflow-auto p-4 bg-light">
+
+            <!-- Content -->
+            <section class="flex-grow-1 overflow-auto p-4">
                 <div class="container-fluid">
                     <div class="row justify-content-center">
-                        <div class="col-12 col-md-10 col-lg-8">
-                            <div class="bg-white rounded-3 shadow-sm p-5">
-                                <!-- Thông tin bài quiz -->
-                                <!-- Thông tin bài quiz -->
-                                <div class="mb-4 text-center">
-                                    <div class="rounded-3 p-3">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <!-- Ảnh quiz -->
-                                            <img th:src="${#strings.isEmpty(quiz.imageUrl) ? '/images/default-quiz.png' : quiz.imageUrl}"
-                                                
-                                                style="width: 150px; height: 150px; object-fit: cover;" />
+                        <div class="col-12 col-lg-10 col-xl-8">
+                            <!-- Quiz Header -->
+                            <div class="quiz-header p-4 mb-4">
+                                <div
+                                    class="d-flex flex-column flex-md-row align-items-center align-items-md-start gap-4">
+                                    <img th:src="@{'/images/quizImages/'+${quiz.imageUrl}}" alt="Quiz image"
+                                        class="quiz-image">
+                                    <div class="flex-grow-1">
+                                        <h2 class="mb-3 fw-bold text-primary" th:text="${quiz.title}"></h2>
 
-
-                                            <div class="d-flex flex-column align-items-start gap-2">
-                                                <div class="fw-semibold" style="font-size: 200%; color: #7c3aed;">
-                                                    <span th:text="${quiz.title}">Giải phương trình bậc hai</span>
-
-                                                </div>
-                                                <div>Chủ đề: <span class="fw-semibold"
-                                                        th:text="${quiz.category?.name}">Toán học</span></div>
-                                                <div>Tác giả: <span class="fw-semibold"
-                                                        th:text="${quiz.createdBy.username}">Đức Khánh</span></div>
-                                                <div>Ngày tạo: <span class="fw-semibold"
-                                                        th:text="${#temporals.format(quiz.createdAt, 'dd/MM/yyyy')}">01/01/2023</span>
-                                                </div>
-                                                <div>Số lượng câu hỏi: <span class="fw-semibold text-success"
-                                                        th:text="${questions.size()}">15</span></div>
-                                                <div>Thời gian làm bài (Phút): <span class="fw-semibold text-success"
-                                                        th:text="${quiz.timeLimitMinutes}">10</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-
-                                <!-- Danh sách câu hỏi -->
-                                <div th:each="question, iter : ${questions}" class="quiz-question"
-                                    style="border-bottom:1px solid #e5e7eb;padding:1.5rem 0;">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <span class="text-uppercase text-secondary fw-semibold"
-                                            style="font-size: 0.95rem;">
-                                            <span th:text="${iter.index + 1}">1</span>
-                                            <div>
-                                                <a th:href="@{/questions/edit/{id}(id=${question.questionId})}"
-                                                    class="btn btn-outline-primary btn-sm me-2">
-                                                    <i class="fas fa-edit"></i> Sửa
-                                                </a>
-                                                <a th:href="@{/questions/delete/{id}(id=${question.questionId})}"
-                                                    class="btn btn-outline-danger btn-sm">
-                                                    <i class="fas fa-trash-alt"></i> Xoá
-                                                </a>
-                                            </div>
-                                    </div>
-
-                                    <!-- Nội dung câu hỏi -->
-                                    <div class="fw-semibold mb-2" style="font-size: 1.1rem;"
-                                        th:text="${question.questionText}">What kind of birds are the main characters?
-                                    </div>
-
-                                    <!-- Ảnh câu hỏi (nếu có) -->
-                                    <img th:if="${not #strings.isEmpty(question.imageUrl)}"
-                                        th:src="${question.imageUrl}" class="img-fluid mb-3" style="max-height: 200px;">
-
-                                    <!-- Các lựa chọn -->
-                                    <div class="row mb-2">
-                                        <div th:each="choice, choiceIter : ${question.choices}"
-                                            th:class="${choiceIter.index < 2 ? 'col-12 col-md-6' : 'col-12 col-md-6'}">
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input"
-                                                    th:type="${question.questionType == T(com.example.qiuzweb.domain.Question.QuestionType).SINGLE ? 'radio' : 'checkbox'}"
-                                                    th:name="'choices[' + ${choiceIter.index} + '].isCorrect'"
-                                                    th:id="'q' + ${choiceIter.index}">
-                                                <label class="form-check-label" th:for="'q' + ${choiceIter.index}"
-                                                    th:text="${choice.choiceText}">Đáp án</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Đáp án đúng -->
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div>Đáp án đúng:
-                                            <span class="fw-semibold text-success">
-                                                <span th:each="choice, choiceIter : ${question.choices}"
-                                                    th:if="${choice.isCorrect}"
-                                                    th:text="${choice.choiceText} + (${choiceIter.last} ? '' : ' ')">Đáp
-                                                    án</span>
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <span class="badge badge-category rounded-pill px-3 py-2">
+                                                <i class="fas fa-tag me-2"></i>
+                                                <span th:text="${quiz.category?.name}"></span>
                                             </span>
+
+                                            <div class="d-flex align-items-center text-muted">
+                                                <i class="fas fa-user me-2"></i>
+                                                <span th:text="${quiz.createdBy.username}"></span>
+                                            </div>
+
+                                            <div class="d-flex align-items-center text-muted">
+                                                <i class="fas fa-calendar me-2"></i>
+                                                <span
+                                                    th:text="${#temporals.format(quiz.createdAt, 'dd/MM/yyyy')}"></span>
+                                            </div>
                                         </div>
 
+                                        <div class="d-flex flex-wrap gap-4">
+                                            <div class="d-flex align-items-center text-muted">
+                                                <i class="fas fa-question-circle me-2"></i>
+                                                <span th:text="${questions.size()} + ' câu hỏi'"></span>
+                                            </div>
+
+                                            <div class="d-flex align-items-center text-muted">
+                                                <i class="fas fa-clock me-2"></i>
+                                                <span th:text="${quiz.timeLimitMinutes} + ' phút'"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Questions Section -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="fw-bold mb-0">Danh sách câu hỏi</h4>
+                                <a th:href="@{/questions/add/{quizId}(quizId=${quiz.quizId})}"
+                                    class="btn btn-primary px-4">
+                                    <i class="fas fa-plus me-2"></i> Thêm câu hỏi
+                                </a>
+                            </div>
+
+                            <!-- Questions List -->
+                            <div th:each="question, iter : ${questions}" class="question-card p-4">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <span class="question-number" th:text="${iter.index + 1}"></span>
+                                        <h5 class="mb-0 fw-semibold" th:text="${question.questionText}"></h5>
                                     </div>
 
-                                </div>
-                                <!-- Nút tạo thêm câu hỏi -->
-                                <div class="text-center mt-4">
-                                    <a th:href="@{/questions/add/{quizId}(quizId=${quiz.quizId})}"
-                                        class="btn btn-primary" style="width: 200px;">
-                                        <i class="fas fa-plus"></i> Thêm câu hỏi
-                                    </a>
+                                    <div class="d-flex gap-2">
+                                       
+                                        <a th:href="@{/questions/delete/{id}/{quizId}(id=${question.questionId}, quizId=${quiz.quizId})}"
+                                            onclick="return confirm('Bạn có chắc muốn xóa câu hỏi này?')"
+                                            class="action-btn btn btn-outline-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
 
+                                    </div>
                                 </div>
+
+
+                                <!-- Choices -->
+                                <div class="mb-3">
+                                    <div class="row g-3">
+                                        <div th:each="choice, choiceIter : ${question.choices}" class="col-12 col-md-6">
+                                            <div th:classappend="${choice.isCorrect} ? 'correct' : ''"
+                                                class="choice-item">
+                                                <div class="form-check mb-0">
+                                                    <input class="form-check-input"
+                                                        th:type="${question.questionType == T(com.example.qiuzweb.domain.Question.QuestionType).SINGLE ? 'radio' : 'checkbox'}"
+                                                        th:checked="${choice.isCorrect}" disabled>
+                                                    <label class="form-check-label ms-2"
+                                                        th:text="${choice.choiceText}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Correct Answer Indicator -->
+                                <div class="d-flex align-items-center text-success small">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    <span>Đáp án đúng: </span>
+                                    <span class="fw-semibold ms-2">
+                                        <span th:each="choice, choiceIter : ${question.choices}"
+                                            th:if="${choice.isCorrect}"
+                                            th:text="${choice.choiceText} + (${choiceIter.last} ? '' : ', ')"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Empty State -->
+                            <div th:if="${questions.empty}" class="text-center py-5 bg-white rounded-3">
+                                <div class="mb-4">
+                                    <i class="fas fa-question-circle fa-4x text-muted"></i>
+                                </div>
+                                <h5 class="fw-semibold mb-2">Chưa có câu hỏi nào</h5>
+                                <p class="text-muted mb-4">Bắt đầu bằng cách thêm câu hỏi đầu tiên</p>
+                                <a th:href="@{/questions/add/{quizId}(quizId=${quiz.quizId})}"
+                                    class="btn btn-primary px-4">
+                                    <i class="fas fa-plus me-2"></i> Thêm câu hỏi
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </section>
-
-
         </main>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add smooth hover effects
+        document.querySelectorAll('.question-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                card.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+            });
+        });
+    </script>
 </body>
 
 </html>

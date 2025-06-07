@@ -22,17 +22,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        // Gọi class cha để lấy dữ liệu từ Google/Facebook/GitHub
         OAuth2User oauth2User = super.loadUser(userRequest);
-
         String registrationId = userRequest.getClientRegistration().getRegistrationId(); // google, facebook, github
-
-        // Các thuộc tính chung
         final String[] email = new String[1];
         final String[] name = new String[1];
         final String[] imageUrl = new String[1];
-
-        // Phân biệt từng provider
         if (registrationId.equals("google")) {
             email[0] = oauth2User.getAttribute("email");
             name[0] = oauth2User.getAttribute("name");

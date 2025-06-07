@@ -1,194 +1,417 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tạo chủ đề mới</title>
+    <title>Thêm câu hỏi mới</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #f8f9fc;
+            --success-color: #1cc88a;
+            --danger-color: #e74a3b;
+            --dark-color: #5a5c69;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fc;
+        }
+        
+        .card {
+            border-radius: 0.5rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            border: none;
+        }
+        
+        .card-header {
+            background-color: var(--secondary-color);
+            border-bottom: 1px solid #e3e6f0;
+            font-weight: 600;
+            padding: 1.25rem 1.5rem;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .answer-container {
+            margin-bottom: 1rem;
+            border: 1px solid #e3e6f0;
+            border-radius: 0.35rem;
+            padding: 0.75rem;
+            background-color: white;
+        }
+        
         .answer-label {
-            min-width: 30px;
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
             text-align: center;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            margin-right: 1rem;
+            font-weight: 600;
         }
-
+        
         .correct-checkbox {
-            margin-right: 10px;
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 1rem;
         }
-
+        
         .error-message {
-            color: #dc3545;
+            color: var(--danger-color);
             font-size: 0.875em;
+        }
+        
+        /* Upload image styles */
+        .image-upload-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed #d1d3e2;
+            border-radius: 0.35rem;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(78, 115, 223, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 0.35rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .btn-remove-image {
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .file-info {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
         }
     </style>
 </head>
 
-<body class="bg-white text-dark">
+<body class="bg-light">
     <div class="d-flex min-vh-100">
         <!-- Sidebar -->
         <div th:replace="~{client/layout/sidebar :: sidebar}"></div>
+        
         <!-- Main content -->
         <main class="flex-grow-1 d-flex flex-column">
             <!-- Top bar -->
             <div th:replace="~{client/layout/topbar :: topbar}"></div>
 
-            <!-- Content grid -->
-            <div class=" container center">
-                <section class="flex-grow-1 overflow-auto p-4">
-
-
-                    <div class="container mt-5">
-                        <h2 class="mb-4">Thêm câu hỏi mới</h2>
-
-                        <form th:action="@{/questions/add/{id}(id=${quiz.quizId})}" method="post" th:object="${questionForm}">
-
-
-                            <!-- Nội dung câu hỏi -->
-                            <div class="mb-3">
-                                <label class="form-label">Nội dung câu hỏi</label>
-                                <textarea class="form-control" th:field="*{questionText}" rows="3" required></textarea>
-                                <div th:if="${#fields.hasErrors('questionText')}" class="error-message">
-                                    <span th:errors="*{questionText}"></span>
-                                </div>
+            <!-- Content -->
+            <div class="container-fluid py-4">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h4 class="m-0 font-weight-bold text-primary">Thêm câu hỏi mới</h4>
                             </div>
-
-                            <!-- Loại câu hỏi -->
-                            <div class="mb-3">
-                                <label class="form-label">Loại câu hỏi</label>
-                                <select class="form-select" th:field="*{questionType}" id="questionType">
-                                    <option value="SINGLE">Một đáp án đúng</option>
-                                    <option value="MULTIPLE">Nhiều đáp án đúng</option>
-                                </select>
-                                <div th:if="${#fields.hasErrors('questionType')}" class="error-message">
-                                    <span th:errors="*{questionType}"></span>
+                            
+                            <div class="card-body">
+                                <!-- Thông báo -->
+                                <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <span th:text="${success}"></span>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
+                                
+                                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <span th:text="${error}"></span>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                
+                                <form th:action="@{/questions/add/{id}(id=${quiz.quizId})}" method="post" th:object="${questionForm}" enctype="multipart/form-data" id="questionForm">
+                                    <!-- Nội dung câu hỏi -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Nội dung câu hỏi</label>
+                                        <textarea class="form-control" th:field="*{questionText}" rows="3" required></textarea>
+                                        <div th:if="${#fields.hasErrors('questionText')}" class="error-message">
+                                            <span th:errors="*{questionText}"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Upload ảnh -->
+                                    <div class="mb-4 image-upload-container">
+                                        <label class="form-label">Ảnh minh họa (tùy chọn)</label>
+                                        <div class="upload-area" id="uploadArea">
+                                            <div class="upload-icon">
+                                                <i class="bi bi-image"></i>
+                                            </div>
+                                            <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
+                                            <p class="text-muted small">Hỗ trợ: JPG, PNG (tối đa 2MB)</p>
+                                            <input type="file" id="questionImage" name="questionImage" accept="image/*" style="display: none;">
+                                        </div>
+                                        <div class="file-info" id="fileInfo"></div>
+                                        <img id="imagePreview" class="image-preview" src="#" alt="Preview">
+                                        <button type="button" id="removeImageBtn" class="btn btn-sm btn-danger btn-remove-image">
+                                            <i class="bi bi-trash"></i> Xóa ảnh
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Loại câu hỏi -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Loại câu hỏi</label>
+                                        <select class="form-select" th:field="*{questionType}" id="questionType">
+                                            <option value="SINGLE">Một đáp án đúng</option>
+                                            <option value="MULTIPLE">Nhiều đáp án đúng</option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('questionType')}" class="error-message">
+                                            <span th:errors="*{questionType}"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Các đáp án -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Các đáp án</label>
+                                        
+                                        <!-- Đáp án A -->
+                                        <div class="answer-container">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <input class="form-check-input correct-checkbox" type="checkbox" 
+                                                    th:field="*{choices[0].isCorrect}" id="correctA">
+                                                <span class="answer-label">A</span>
+                                            </div>
+                                            <input type="text" class="form-control" th:field="*{choices[0].choiceText}"
+                                                placeholder="Nhập đáp án A" required>
+                                        </div>
+                                        
+                                        <!-- Đáp án B -->
+                                        <div class="answer-container">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <input class="form-check-input correct-checkbox" type="checkbox" 
+                                                    th:field="*{choices[1].isCorrect}" id="correctB">
+                                                <span class="answer-label">B</span>
+                                            </div>
+                                            <input type="text" class="form-control" th:field="*{choices[1].choiceText}"
+                                                placeholder="Nhập đáp án B" required>
+                                        </div>
+                                        
+                                        <!-- Đáp án C -->
+                                        <div class="answer-container">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <input class="form-check-input correct-checkbox" type="checkbox" 
+                                                    th:field="*{choices[2].isCorrect}" id="correctC">
+                                                <span class="answer-label">C</span>
+                                            </div>
+                                            <input type="text" class="form-control" th:field="*{choices[2].choiceText}"
+                                                placeholder="Nhập đáp án C" required>
+                                        </div>
+                                        
+                                        <!-- Đáp án D -->
+                                        <div class="answer-container">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <input class="form-check-input correct-checkbox" type="checkbox" 
+                                                    th:field="*{choices[3].isCorrect}" id="correctD">
+                                                <span class="answer-label">D</span>
+                                            </div>
+                                            <input type="text" class="form-control" th:field="*{choices[3].choiceText}"
+                                                placeholder="Nhập đáp án D" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Nút hành động -->
+                                    <div class="d-flex justify-content-end mt-4">
+                                        <a th:href="@{/quizzes/detail/${quiz.quizId}}" class="btn btn-secondary me-2">
+                                            <i class="bi bi-x-circle"></i> Hủy
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-save"></i> Lưu câu hỏi
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-
-                            <!-- 4 đáp án -->
-                            <div class="mb-3">
-                                <label class="form-label">Các đáp án</label>
-
-                                <!-- Đáp án A -->
-                                <div class="input-group mb-2">
-                                    <span class="input-group-text">
-                                        <input class="form-check-input correct-checkbox" type="checkbox"
-                                            th:field="*{choices[0].isCorrect}">
-                                        <span class="answer-label">A</span>
-                                    </span>
-                                    <input type="text" class="form-control" th:field="*{choices[0].choiceText}"
-                                        placeholder="Nhập đáp án A" required>
-                                </div>
-
-                                <!-- Đáp án B -->
-                                <div class="input-group mb-2">
-                                    <span class="input-group-text">
-                                        <input class="form-check-input correct-checkbox" type="checkbox"
-                                            th:field="*{choices[1].isCorrect}">
-                                        <span class="answer-label">B</span>
-                                    </span>
-                                    <input type="text" class="form-control" th:field="*{choices[1].choiceText}"
-                                        placeholder="Nhập đáp án B" required>
-                                </div>
-
-                                <!-- Đáp án C -->
-                                <div class="input-group mb-2">
-                                    <span class="input-group-text">
-                                        <input class="form-check-input correct-checkbox" type="checkbox"
-                                            th:field="*{choices[2].isCorrect}">
-                                        <span class="answer-label">C</span>
-                                    </span>
-                                    <input type="text" class="form-control" th:field="*{choices[2].choiceText}"
-                                        placeholder="Nhập đáp án C" required>
-                                </div>
-
-                                <!-- Đáp án D -->
-                                <div class="input-group mb-2">
-                                    <span class="input-group-text">
-                                        <input class="form-check-input correct-checkbox" type="checkbox"
-                                            th:field="*{choices[3].isCorrect}">
-                                        <span class="answer-label">D</span>
-                                    </span>
-                                    <input type="text" class="form-control" th:field="*{choices[3].choiceText}"
-                                        placeholder="Nhập đáp án D" required>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Lưu câu hỏi</button>
-                            <a th:href="@{/quizzes/detail/${quiz.quizId}}" class="btn btn-secondary ms-2">Hủy</a>
-                        </form>
+                        </div>
                     </div>
-
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const questionType = document.getElementById('questionType');
-                            const checkboxes = document.querySelectorAll('.correct-checkbox');
-
-                            // Xử lý khi thay đổi loại câu hỏi
-                            questionType.addEventListener('change', function () {
-                                updateCheckboxBehavior();
-                            });
-
-                            // Xử lý khi click checkbox
-                            checkboxes.forEach(checkbox => {
-                                checkbox.addEventListener('change', function () {
-                                    if (questionType.value === 'SINGLE' && this.checked) {
-                                        // Bỏ chọn tất cả các checkbox khác
-                                        checkboxes.forEach(cb => {
-                                            if (cb !== this) cb.checked = false;
-                                        });
-                                    }
-                                });
-                            });
-
-                            // Kiểm tra validate khi submit form
-                            document.getElementById('questionForm').addEventListener('submit', function (e) {
-                                const checkedCount = document.querySelectorAll('.correct-checkbox:checked').length;
-
-                                if (questionType.value === 'SINGLE' && checkedCount !== 1) {
-                                    e.preventDefault();
-                                    alert('Câu hỏi loại "Một đáp án đúng" phải có duy nhất 1 đáp án được chọn!');
-                                    return false;
-                                }
-
-                                if (questionType.value === 'MULTIPLE' && checkedCount < 1) {
-                                    e.preventDefault();
-                                    alert('Câu hỏi loại "Nhiều đáp án đúng" phải có ít nhất 1 đáp án được chọn!');
-                                    return false;
-                                }
-
-                                return true;
-                            });
-
-                            function updateCheckboxBehavior() {
-                                if (questionType.value === 'SINGLE') {
-                                    // Nếu đang chọn nhiều checkbox, chỉ giữ lại cái đầu tiên
-                                    const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
-                                    if (checkedBoxes.length > 1) {
-                                        checkboxes.forEach(cb => cb.checked = false);
-                                        checkedBoxes[0].checked = true;
-                                    }
-
-                                    // Nếu chưa có đáp án nào được chọn, chọn đáp án đầu tiên
-                                    if (checkedBoxes.length === 0 && checkboxes.length > 0) {
-                                        checkboxes[0].checked = true;
-                                    }
-                                }
-                            }
-
-                            // Khởi tạo ban đầu
-                            updateCheckboxBehavior();
-                        });
-                    </script>
-                </section>
+                </div>
             </div>
         </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý upload ảnh
+            const uploadArea = document.getElementById('uploadArea');
+            const imageInput = document.getElementById('questionImage');
+            const imagePreview = document.getElementById('imagePreview');
+            const fileInfo = document.getElementById('fileInfo');
+            const removeImageBtn = document.getElementById('removeImageBtn');
+            
+            // Click vào vùng upload
+            uploadArea.addEventListener('click', function() {
+                imageInput.click();
+            });
+            
+            // Thay đổi file ảnh
+            imageInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    
+                    // Kiểm tra kích thước file
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('Kích thước file quá lớn. Vui lòng chọn file nhỏ hơn 2MB.');
+                        return;
+                    }
+                    
+                    // Kiểm tra loại file
+                    if (!file.type.match('image.*')) {
+                        alert('Vui lòng chọn file ảnh (JPG, PNG)');
+                        return;
+                    }
+                    
+                    // Hiển thị thông tin file
+                    fileInfo.textContent = `File đã chọn: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+                    
+                    // Hiển thị ảnh xem trước
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                        removeImageBtn.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Xóa ảnh
+            removeImageBtn.addEventListener('click', function() {
+                imageInput.value = '';
+                imagePreview.src = '#';
+                imagePreview.style.display = 'none';
+                removeImageBtn.style.display = 'none';
+                fileInfo.textContent = '';
+            });
+            
+            // Kéo thả file
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#4e73df';
+                uploadArea.style.backgroundColor = 'rgba(78, 115, 223, 0.1)';
+            });
+            
+            uploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#d1d3e2';
+                uploadArea.style.backgroundColor = '';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#d1d3e2';
+                uploadArea.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files.length > 0) {
+                    imageInput.files = e.dataTransfer.files;
+                    const event = new Event('change');
+                    imageInput.dispatchEvent(event);
+                }
+            });
+            
+            // Xử lý loại câu hỏi và checkbox
+            const questionType = document.getElementById('questionType');
+            const checkboxes = document.querySelectorAll('.correct-checkbox');
+            
+            function updateCheckboxBehavior() {
+                if (questionType.value === 'SINGLE') {
+                    // Nếu là câu hỏi 1 đáp án đúng
+                    const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
+                    
+                    if (checkedBoxes.length > 1) {
+                        // Nếu có nhiều checkbox được chọn, chỉ giữ lại cái đầu tiên
+                        checkboxes.forEach(cb => cb.checked = false);
+                        checkedBoxes[0].checked = true;
+                    }
+                    
+                    // Thêm sự kiện để chỉ cho phép chọn 1 checkbox
+                    checkboxes.forEach(checkbox => {
+                        checkbox.addEventListener('change', function() {
+                            if (this.checked) {
+                                checkboxes.forEach(cb => {
+                                    if (cb !== this) cb.checked = false;
+                                });
+                            }
+                        });
+                    });
+                } else {
+                    // Nếu là câu hỏi nhiều đáp án đúng
+                    checkboxes.forEach(checkbox => {
+                        checkbox.replaceWith(checkbox.cloneNode(true));
+                    });
+                }
+            }
+            
+            // Thay đổi loại câu hỏi
+            questionType.addEventListener('change', updateCheckboxBehavior);
+            
+            // Validate form
+            document.getElementById('questionForm').addEventListener('submit', function(e) {
+                const checkedCount = document.querySelectorAll('.correct-checkbox:checked').length;
+                
+                if (questionType.value === 'SINGLE' && checkedCount !== 1) {
+                    e.preventDefault();
+                    alert('Câu hỏi loại "Một đáp án đúng" phải có duy nhất 1 đáp án được chọn!');
+                    return false;
+                }
+                
+                if (questionType.value === 'MULTIPLE' && checkedCount < 1) {
+                    e.preventDefault();
+                    alert('Câu hỏi loại "Nhiều đáp án đúng" phải có ít nhất 1 đáp án được chọn!');
+                    return false;
+                }
+                
+                // Kiểm tra nội dung các đáp án
+                const answerInputs = document.querySelectorAll('.answer-container input[type="text"]');
+                let emptyAnswers = false;
+                
+                answerInputs.forEach(input => {
+                    if (input.value.trim() === '') {
+                        emptyAnswers = true;
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+                });
+                
+                if (emptyAnswers) {
+                    e.preventDefault();
+                    alert('Vui lòng nhập đầy đủ nội dung cho tất cả các đáp án!');
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            // Khởi tạo ban đầu
+            updateCheckboxBehavior();
+        });
+    </script>
+</body>
 </html>

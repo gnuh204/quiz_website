@@ -1,6 +1,7 @@
 package com.example.qiuzweb.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -16,10 +17,24 @@ public class Quiz {
     private String description;
 
     private String imageUrl;
+    
 
     @ManyToOne
     @JoinColumn(name = "created_by")
     private User createdBy;
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<QuizRating> ratings = new ArrayList<>();
+   
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuizComment> comments;
+    public List<QuizRating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<QuizRating> ratings) {
+        this.ratings = ratings;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -28,6 +43,7 @@ public class Quiz {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+    
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -37,7 +53,7 @@ public class Quiz {
     private Boolean isRandomOrder;
 
     private LocalDateTime createdAt;
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions;
 
     public List<Question> getQuestions() {

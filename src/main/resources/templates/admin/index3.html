@@ -1,41 +1,104 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard - QuizArcade</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body class="bg-gray-900 text-white min-h-screen flex">
 
-  <!-- Sidebar -->
-  <aside class="w-64 bg-gray-800 flex flex-col p-4 space-y-6">
-    <div class="text-2xl font-bold text-white">🎮 QuizArcade</div>
-    <nav class="flex flex-col space-y-2">
-      <a href="#" th:attr="data-href=@{/admin/dashboard}" class="text-left text-gray-300 hover:text-white sidebar-link">🏠 Trang chủ</a>
-      <a href="#" th:attr="data-href=@{/admin/accounts}" class="text-left text-gray-300 hover:text-white sidebar-link">👤 Quản lý tài khoản</a>
-      <a href="#" th:attr="data-href=@{/admin/quizzes}" class="text-left text-gray-300 hover:text-white sidebar-link">📝 Quản lý Quiz</a>
-      <a href="#" th:attr="data-href=@{/admin/question/add}" class="text-left text-gray-300 hover:text-white sidebar-link">➕ Tạo Quiz</a>
-      <a th:href="@{/logout}" class="text-red-400 hover:text-red-200">🔓 Đăng xuất</a>
+  <!-- Sidebar được cải tiến -->
+  <aside class="w-64 bg-gray-800 flex flex-col border-r border-gray-700">
+    <!-- Logo và tên ứng dụng -->
+    <div class="p-4 border-b border-gray-700 flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-xl">
+        🎮
+      </div>
+      <h1 class="text-xl font-bold text-white">QuizArcade</h1>
+    </div>
+
+    <!-- Menu điều hướng -->
+    <nav class="flex-1 p-4 space-y-1">
+      <a href="#" th:attr="data-href=@{/admin/dashboard}"
+        class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors sidebar-link">
+        <i class="fas fa-home w-6 text-center mr-3"></i>
+        <span>Trang chủ</span>
+      </a>
+
+      <a href="#" th:attr="data-href=@{/admin/accounts}"
+        class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors sidebar-link">
+        <i class="fas fa-users w-6 text-center mr-3"></i>
+        <span>Quản lý tài khoản</span>
+      </a>
+
+      <a href="#" th:attr="data-href=@{/admin/topics/list}"
+        class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors sidebar-link">
+        <i class="fas fa-list-alt w-6 text-center mr-3"></i>
+        <span>Quản lý Quiz</span>
+      </a>
+
+      <a th:href="@{/NewCategory}" th:data-href="@{/NewCategory}" data-exit-admin="true" class="sidebar-link">
+        <i class="fas fa-plus-circle"></i>
+        <span>Tạo Quiz</span>
+      </a>
+
     </nav>
+
+    <!-- Phần footer sidebar -->
+    <div class="p-4 border-t border-gray-700">
+      <a th:href="@{/logout}"
+        class="flex items-center p-3 rounded-lg text-red-400 hover:bg-gray-700 hover:text-red-300 transition-colors">
+        <i class="fas fa-sign-out-alt w-6 text-center mr-3"></i>
+        <span>Đăng xuất</span>
+      </a>
+    </div>
   </aside>
 
   <!-- Nội dung chính qua iframe -->
-  <main class="flex-1 p-4">
-    <iframe id="mainFrame" th:src="@{/admin/dashboard}" class="w-full h-screen rounded-xl" frameborder="0"></iframe>
+  <main class="flex-1 p-6 bg-gray-900">
+    <iframe id="mainFrame" th:src="@{/admin/dashboard}"
+      class="w-full h-full min-h-screen rounded-xl bg-gray-800 border border-gray-700 shadow-lg"
+      frameborder="0"></iframe>
   </main>
 
   <script>
     document.querySelectorAll('.sidebar-link').forEach(link => {
-      link.addEventListener('click', function(event) {
+      link.addEventListener('click', function (event) {
         event.preventDefault();
         const url = this.getAttribute('data-href');
-        console.log("Load iframe url:", url);
+        const isExitAdmin = this.dataset.exitAdmin === "true";
+
         if (url) {
-          document.getElementById('mainFrame').src = url;
+          if (isExitAdmin) {
+            // ✅ chuyển hẳn trang
+            window.location.href = url;
+          } else {
+            // ✅ chỉ thay đổi nội dung iframe
+            document.getElementById('mainFrame').src = url;
+            document.querySelectorAll('.sidebar-link').forEach(item => {
+              item.classList.remove('bg-gray-700', 'text-white');
+            });
+            this.classList.add('bg-gray-700', 'text-white');
+          }
+        }
+      });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const currentUrl = window.location.href;
+      document.querySelectorAll('.sidebar-link').forEach(link => {
+        const linkUrl = link.getAttribute('data-href');
+        if (currentUrl.includes(linkUrl)) {
+          link.classList.add('bg-gray-700', 'text-white');
         }
       });
     });
   </script>
 </body>
+
 </html>

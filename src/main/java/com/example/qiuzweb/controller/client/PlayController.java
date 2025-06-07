@@ -24,7 +24,7 @@ public class PlayController {
         this.quizService = quizService;
         this.questionService = questionService;
     }
-     @GetMapping("/take/{quizId}/question/{index}")
+     @GetMapping("/take/{quizId:\\d+}/question/{index:\\d+}")
     public String takeQuiz(@PathVariable("quizId") Long quizId,
                            @PathVariable("index") int index,
                            @RequestParam(name = "score", defaultValue = "0") int score,
@@ -50,14 +50,23 @@ public class PlayController {
 
         return "client/play/PlayQuizPage";
     }
-    @PostMapping("/take/{quizId}/question/{index}/answer")
-    public String submitAnswer(@PathVariable("quizId") Long quizId,
-                               @PathVariable("index") int index,
-                               @RequestParam("score") int score,
-                               @RequestParam("isCorrect") boolean isCorrect) {
-        int updatedScore = isCorrect ? score + 1 : score;
-        int nextIndex = index + 1;
+    @PostMapping("/take/{quizId:\\d+}/question/{index:\\d+}/answer")
+public String submitAnswer(@PathVariable("quizId") Long quizId,
+                           @PathVariable("index") int index,
+                           @RequestParam("score") int score,
+                           @RequestParam(value = "isCorrect", required = false) Boolean isCorrect,
+                           @RequestParam(value = "timeout", required = false) Boolean timeout) {
+    int updatedScore = score;
 
-        return "redirect:/quizzes/take/" + quizId + "/question/" + nextIndex + "?score=" + updatedScore;
+    // Nếu timeout thì không cộng điểm
+    if (Boolean.TRUE.equals(timeout)) {
+        // Có thể log lại việc timeout nếu cần
+    } else if (Boolean.TRUE.equals(isCorrect)) {
+        updatedScore++;
     }
+
+    int nextIndex = index + 1;
+    return "redirect:/quizzes/take/" + quizId + "/question/" + nextIndex + "?score=" + updatedScore;
+}
+
 }

@@ -15,15 +15,16 @@
        style="background-color: #7c3aed;">
        Thêm tài khoản
     </a>
-  </div>
+</div>
 
   <table class="min-w-full bg-white shadow rounded-lg">
     <thead>
       <tr class="bg-gray-200 text-left">
-        <th class="p-3">Username</th>
+        <th class="p-3">Tên Tài Khoản</th>
         <th class="p-3">Email</th>
-        <th class="p-3">Role</th>
+        <th class="p-3">Quyền</th>
         <th class="p-3">Ngày tạo</th>
+        <th class="p-3">Loại Tài Khoản</th>
         <th class="p-3">Hành động</th>
       </tr>
     </thead>
@@ -33,7 +34,9 @@
         <td class="p-3" th:text="${user.email}">demo@example.com</td>
         <td class="p-3" th:text="${user.role}">ADMIN</td>
         <td class="p-3" th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy HH:mm')}">01/06/2025</td>
+        <td class="p-3" th:text="${user.provider}">Locol</td>
         <td class="p-3">
+
 
 <button onclick="openModal('[[${user.userId}]]')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
     Xóa

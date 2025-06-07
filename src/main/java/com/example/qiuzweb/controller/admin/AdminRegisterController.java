@@ -25,7 +25,6 @@ public class AdminRegisterController {
         model.addAttribute("adminuser", new UserDTO());
         return "admin/adminsignup";
     }
-
     @PostMapping
     public String registerAdmin(@ModelAttribute("adminuser") @Valid UserDTO dto, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -40,6 +39,6 @@ public class AdminRegisterController {
            return "admin/adminsignup";
         }
         userService.registerUserAdmin(dto);
-        return "redirect:/login";
+        return "admin/account-management";
     }
 }

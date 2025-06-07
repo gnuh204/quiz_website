@@ -4,70 +4,232 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quizizz Student</title>
+  <title>Danh sách Quiz | Quizizz Student</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #8d5fd3;
+      --primary-light: #9d6df5;
+      --primary-dark: #7a4cb5;
+      --text-color: #2d3748;
+      --text-light: #718096;
+      --border-color: #e2e8f0;
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: var(--text-color);
+    }
+
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .quiz-card {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+      box-shadow: var(--card-shadow);
+    }
+
+    .quiz-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--card-hover-shadow);
+      border-color: var(--primary-light);
+    }
+
+    .quiz-image {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      border: 3px solid white;
+    }
+
+    .quiz-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .meta-item {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .meta-item i {
+      width: 18px;
+      color: var(--primary-color);
+      margin-right: 0.5rem;
+    }
+
+    .btn-details {
+      background-color: white;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 0.5rem;
+      padding: 0.4rem 1rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .btn-details:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-delete {
+      background-color: white;
+      color: #e53e3e;
+      border: 2px solid #e53e3e;
+      border-radius: 0.5rem;
+      padding: 0.4rem 1rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .btn-delete:hover {
+      background-color: #e53e3e;
+      color: white;
+    }
+
+    .btn-create {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.6rem 1.5rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .btn-create:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .empty-state {
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-light);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      color: var(--primary-light);
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .quiz-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .quiz-image {
+        width: 100%;
+        height: 160px;
+        margin-bottom: 1rem;
+      }
+      
+      .quiz-meta {
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      
+      .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
-<body class="bg-white text-dark">
+<body class="bg-light">
   <div class="d-flex min-vh-100">
     <!-- Sidebar -->
     <div th:replace="~{client/layout/sidebar :: sidebar}"></div>
+    
     <!-- Main content -->
-    <main class="flex-grow-1 d-flex flex-column ">
+    <main class="flex-grow-1 d-flex flex-column">
       <!-- Top bar -->
       <div th:replace="~{client/layout/topbar :: topbar}"></div>
 
-      <!-- Content grid -->
-      <div class="container center">
-        <section class="flex-grow-1 overflow-auto p-4">
-          <div class="container-fluid">
-            <div class="row justify-content-center">
-              <div class="col-12 col-md-10 col-lg-8">
-                <div class="bg-white rounded-3 shadow-sm p-5 text-center">
-                  <!-- Danh sách dữ liệu báo cáo -->
-                  <div th:each="quiz : ${quizzes}" class="mb-4">
-                    <div class="border rounded-3 p-3 bg-light d-flex align-items-center gap-3">
-                      <img th:src="${quiz.imageUrl ?: '/images/default-quiz.png'}" class="rounded-3"
-                        style="width: 150px; height: 150px; object-fit: cover;">
-
-                      <div class="d-flex flex-column align-items-start gap-2">
-                        <div class="fw-semibold">
-                          <span class="text-primary" th:text="${quiz.title}"></span>
-                        </div>
-                        <div>Tác giả: <span th:text="${quiz.createdBy.username}"></span></div>
-                        <div>Ngày tạo: <span th:text="${#temporals.format(quiz.createdAt, 'dd/MM/yyyy')}"></span></div>
-                      </div>
-
-                      <div class="ms-auto">
-                        <a th:href="@{/quizzes/detail/{id}(id=${quiz.quizId})}" class="btn btn-outline-secondary">
-                          Xem chi tiết
-                        </a>
-                      </div>
-                      <div>
-                        <form th:action="@{/quizzes/{id}/delete(id=${quiz.quizId})}" method="post">
-                          <button type="submit" class="btn btn-outline-danger">Xóa</button>
-                        </form>
-                      </div>
-                    </div>
+      <!-- Content -->
+      <section class="flex-grow-1 overflow-auto p-4">
+        <div class="quiz-container">
+          <!-- Quiz List -->
+          <div th:if="${!quizzes.isEmpty()}">
+            <div th:each="quiz : ${quizzes}" class="quiz-card d-flex align-items-center gap-4">
+              <img th:src="@{'/images/quizImages/'+${quiz.imageUrl}}" alt="Quiz image" class="quiz-image">
+              <div class="flex-grow-1">
+                <h5 class="quiz-title" th:text="${quiz.title}">Tên quiz</h5>
+                <div class="quiz-meta">
+                  <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span th:text="${quiz.createdBy.username}">Tác giả</span>
                   </div>
-                  <!-- Thông báo không có dữ liệu -->
-                  <hr>
-                  <div class="fw-semibold fs-5 mb-2">Đó là tất cả về dữ liệu!</div>
-                  <div class="mb-4 text-secondary">Tạo mới 1 bài tập tại đây</div>
-                  <a href="NewCategory" class="btn btn-primary px-4" style="background:#8d5fd3;border:none;">Tạo mới</a>
+                  <div class="meta-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span th:text="${#temporals.format(quiz.createdAt, 'dd/MM/yyyy')}">Ngày tạo</span>
+                  </div>
                 </div>
+              </div>
+              
+              <div class="d-flex gap-2 action-buttons">
+                <a th:href="@{/quizzes/detail/{id}(id=${quiz.quizId})}" class="btn-details">
+                  <i class="fas fa-eye me-1"></i> Chi tiết
+                </a>
+                <form th:action="@{/quizzes/{id}/delete(id=${quiz.quizId})}" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa quiz này?')">
+                  <button type="submit" class="btn-delete">
+                    <i class="fas fa-trash me-1"></i> Xóa
+                  </button>
+                </form>
               </div>
             </div>
           </div>
-        </section>
-      </div>
-
+          
+          <!-- Empty State -->
+          <div th:if="${quizzes.isEmpty()}" class="empty-state">
+            <i class="fas fa-book-open"></i>
+            <h4 class="fw-semibold">Không có quiz nào</h4>
+            <p class="mb-4">Bạn chưa tạo quiz nào hoặc không có quiz nào để hiển thị</p>
+            <a href="/NewCategory" class="btn-create">
+              <i class="fas fa-plus me-2"></i> Tạo quiz mới
+            </a>
+          </div>
+          
+          <!-- Create Button (when quizzes exist) -->
+          <div th:if="${!quizzes.isEmpty()}" class="text-center mt-4">
+            <a href="/NewCategory" class="btn-create">
+              <i class="fas fa-plus me-2"></i> Tạo quiz mới
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

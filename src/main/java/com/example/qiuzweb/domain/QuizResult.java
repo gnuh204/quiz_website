@@ -15,17 +15,13 @@ public class QuizResult {
 
     @ManyToOne @JoinColumn(name = "quiz_id")
     private Quiz quiz;
-
     private Float score;
     private Integer totalQuestions;
     private Integer correctAnswers;
-
     private LocalDateTime takenAt;
-
     public Long getResultId() {
         return resultId;
     }
-
     public void setResultId(Long resultId) {
         this.resultId = resultId;
     }

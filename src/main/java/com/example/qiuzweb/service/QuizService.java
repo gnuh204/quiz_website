@@ -114,4 +114,13 @@ public class QuizService {
     public List<Quiz> getQuizzesByCategoryId(Long categoryId) {
     return quizRepository.findByCategoryCategoryId(categoryId);
 }
+public Quiz deleQuizQuizById(Long quizId) {
+    Quiz quiz = quizRepository.findByQuizId(quizId);
+    if (quiz != null) {
+        quizRepository.delete(quiz);
+        return quiz;
+    } else {
+        throw new RuntimeException("Quiz not found");
+    }
+}
 }

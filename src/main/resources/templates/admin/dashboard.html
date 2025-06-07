@@ -1,33 +1,173 @@
-<!-- templates/dashboard.html -->
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang chủ - Admin</title>
+  <title>Trang chủ - Admin QuizArcade</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-900 text-white p-6">
-  <h1 class="text-3xl font-bold mb-6">
-    Chào mừng <span th:text="${username}">Tên người dùng</span> đến trang Admin 🎉
-  </h1>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Tổng số người dùng -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
-      <h2 class="text-lg font-semibold">Tổng số người dùng</h2>
-      <p class="text-3xl font-bold mt-2" th:text="${totalUsers}">0</p>
-      <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
-        <div class="bg-green-500 h-2 rounded-full" th:style="'width:' + ${userPercent} + '%'"></div>
+<body class="bg-gray-100 min-h-screen">
+  <div class="p-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800">
+          Xin chào, <span th:text="${username}" class="text-blue-600">Admin</span>!
+        </h1>
+        <p class="text-gray-500 mt-1">Chào mừng bạn trở lại bảng điều khiển</p>
+      </div>
+      <div class="flex items-center space-x-4">
+        <div class="relative cursor-pointer">
+          <i class="fas fa-bell text-gray-600 text-xl"></i>
+          <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+        </div>
+        <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
+          <span th:text="${#strings.substring(username, 0, 1)}">A</span>
+        </div>
       </div>
     </div>
 
-    <!-- Tổng số quiz -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
-      <h2 class="text-lg font-semibold">Tổng số bài Quiz</h2>
-      <p class="text-3xl font-bold mt-2" th:text="${totalQuizzes}">0</p>
-      <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
-        <div class="bg-red-500 h-2 rounded-full" th:style="'width:' + ${quizPercent} + '%'"></div>
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Tổng số người dùng -->
+      <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-500 transition-all hover:shadow-lg">
+        <div class="flex justify-between">
+          <div>
+            <p class="text-gray-500 font-medium">Tổng người dùng</p>
+            <h3 class="text-2xl font-bold mt-1" th:text="${totalUsers}">0</h3>
+          </div>
+          <div class="bg-blue-100 p-3 rounded-full h-12 w-12 flex items-center justify-center">
+            <i class="fas fa-users text-blue-500"></i>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-green-500 font-medium" th:text="'+' + ${userPercent} + '%'">+0%</span>
+            <span class="text-gray-500">So với tháng trước</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+            <div class="bg-blue-500 h-2 rounded-full" th:style="'width:' + ${userPercent} + '%'"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tổng số quiz -->
+      <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-purple-500 transition-all hover:shadow-lg">
+        <div class="flex justify-between">
+          <div>
+            <p class="text-gray-500 font-medium">Tổng bài chủ đề </p>
+            <h3 class="text-2xl font-bold mt-1" th:text="${totalCategories}">0</h3>
+          </div>
+          <div class="bg-purple-100 p-3 rounded-full h-12 w-12 flex items-center justify-center">
+            <i class="fas fa-question-circle text-purple-500"></i>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-green-500 font-medium" th:text="'+' + ${quizPercent} + '%'">+0%</span>
+            <span class="text-gray-500">So với tháng trước</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+            <div class="bg-purple-500 h-2 rounded-full" th:style="'width:' + ${quizPercent} + '%'"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thêm 2 card mới để làm phong phú dashboard -->
+      <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500 transition-all hover:shadow-lg">
+        <div class="flex justify-between">
+          <div>
+            <p class="text-gray-500 font-medium">Tổng số Quiz</p>
+            <h3 class="text-2xl font-bold mt-1">24</h3>
+          </div>
+          <div class="bg-green-100 p-3 rounded-full h-12 w-12 flex items-center justify-center">
+            <i class="fas fa-check-circle text-green-500"></i>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-green-500 font-medium">+12%</span>
+            <span class="text-gray-500">So với tuần trước</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+            <div class="bg-green-500 h-2 rounded-full" style="width: 65%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-yellow-500 transition-all hover:shadow-lg">
+        <div class="flex justify-between">
+          <div>
+            <p class="text-gray-500 font-medium">Lượt chơi hôm nay</p>
+            <h3 class="text-2xl font-bold mt-1">156</h3>
+          </div>
+          <div class="bg-yellow-100 p-3 rounded-full h-12 w-12 flex items-center justify-center">
+            <i class="fas fa-chart-line text-yellow-500"></i>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-green-500 font-medium">+8%</span>
+            <span class="text-gray-500">So với hôm qua</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+            <div class="bg-yellow-500 h-2 rounded-full" style="width: 45%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-gray-800">Hoạt động gần đây</h2>
+        <a href="#" class="text-blue-500 text-sm hover:text-blue-700">Xem tất cả</a>
+      </div>
+      <div class="space-y-4">
+        <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-colors">
+          <div class="bg-blue-100 p-2 rounded-full mr-4">
+            <i class="fas fa-user-plus text-blue-500"></i>
+          </div>
+          <div class="flex-1">
+            <p class="font-medium">Người dùng mới: <span class="text-blue-500">user123</span></p>
+            <p class="text-sm text-gray-500">5 phút trước</p>
+          </div>
+          <span class="text-sm text-blue-500 hover:text-blue-700 cursor-pointer">Chi tiết</span>
+        </div>
+        <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-colors">
+          <div class="bg-purple-100 p-2 rounded-full mr-4">
+            <i class="fas fa-question-circle text-purple-500"></i>
+          </div>
+          <div class="flex-1">
+            <p class="font-medium">Quiz mới: <span class="text-purple-500">Lịch sử Việt Nam</span></p>
+            <p class="text-sm text-gray-500">1 giờ trước</p>
+          </div>
+          <span class="text-sm text-blue-500 hover:text-blue-700 cursor-pointer">Chi tiết</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white p-6 rounded-xl shadow-md">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Hành động nhanh</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/admin/register" class="p-4 bg-blue-50 rounded-lg text-center hover:bg-blue-100 transition-colors">
+          <i class="fas fa-user-plus text-blue-500 text-2xl mb-2"></i>
+          <p class="font-medium">Thêm người dùng</p>
+        </a>
+        <a href="/NewCategory" class="p-4 bg-purple-50 rounded-lg text-center hover:bg-purple-100 transition-colors">
+          <i class="fas fa-plus-circle text-purple-500 text-2xl mb-2"></i>
+          <p class="font-medium">Tạo Quiz mới</p>
+        </a>
+        <a href="#" class="p-4 bg-green-50 rounded-lg text-center hover:bg-green-100 transition-colors">
+          <i class="fas fa-cog text-green-500 text-2xl mb-2"></i>
+          <p class="font-medium">Tin nhắn</p>
+        </a>
+        <a href="#" class="p-4 bg-yellow-50 rounded-lg text-center hover:bg-yellow-100 transition-colors">
+          <i class="fas fa-chart-pie text-yellow-500 text-2xl mb-2"></i>
+          <p class="font-medium">Xem báo cáo</p>
+        </a>
       </div>
     </div>
   </div>

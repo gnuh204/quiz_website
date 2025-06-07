@@ -25,4 +25,10 @@ public class CategoryService {
     public Category getCategoryById(Long id) {
         return categoryRepository.findByCategoryId(id);
     }
+    public void deleteById(Long id) {
+        categoryRepository.deleteById(id);
+    }
+    public List<Category> findAllCategories() {
+        return categoryRepository.findAll();
+    }
 }
