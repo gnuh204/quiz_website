@@ -12,7 +12,7 @@ public class UserDTO {
 
     @NotBlank(message = "Tên đăng nhập không được để trống")
     private String username;
-
+    
     @Email(message = "Email không hợp lệ")
     @NotBlank(message = "Email không được để trống")
     private String email;
@@ -23,14 +23,6 @@ public class UserDTO {
     private String confirmPassword;
 
     private User.Role role;
-    private Long userimage;
-    public Long getUserimage() {
-        return userimage;
-    }
-
-    public void setUserimage(Long userimage) {
-        this.userimage = userimage;
-    }
 
     public String getUsername() {
         return username;
