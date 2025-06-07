@@ -1,5 +1,8 @@
 package com.example.qiuzweb.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +14,8 @@ public class Category {
     private String name;
     
     private String imageUrl; 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Quiz> quizzes = new ArrayList<>();
 
     public Long getCategoryId() {
         return categoryId;

@@ -71,12 +71,12 @@ public class Usercontroller {
 
     @GetMapping("/register")
     public String Showsignup(Model model) {
-        model.addAttribute("user", new UserDTO());
+        model.addAttribute("users", new UserDTO());
         return "client/signup";
     }
 
     @PostMapping("/register")
-    public String processRegister(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult result, Model model) {
+    public String processRegister(@ModelAttribute("users") @Valid UserDTO userDTO, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "client/signup";
@@ -109,6 +109,7 @@ public class Usercontroller {
             @RequestParam("email") String email,
             @RequestParam("newpass") String newPass,
             @RequestParam("renewpass") String renewPass,
+           
             RedirectAttributes redirectAttributes) {
         if (!newPass.equals(renewPass)) {
             redirectAttributes.addFlashAttribute("error", "Mật khẩu không khớp.");

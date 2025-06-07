@@ -1,7 +1,8 @@
 package com.example.qiuzweb.domain;
 
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,8 +12,7 @@ import jakarta.persistence.*;
 @Table(name = "users")
 public class User {
 
-  
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
@@ -24,10 +24,20 @@ public class User {
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
-    public enum Role { USER, ADMIN }
+
+    public enum Role {
+        USER, ADMIN
+    }
+
     @Lob
     private String imgurl;
     private String provider;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuizRating> quizRatings = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuizResult> quizResults = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<UserAnswer> userAnswers;
     public String getProvider() {
         return provider;
     }
@@ -93,13 +103,13 @@ public class User {
     }
 
     @Override
-public String toString() {
-    return "User{" +
-           "userimg=" + imgurl +
-           ", username='" + username + '\'' +
-           ", email='" + email + '\'' +
-           ", role=" + role +
-           '}';
+    public String toString() {
+        return "User{" +
+                "userimg=" + imgurl +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                '}';
 
-}
+    }
 }

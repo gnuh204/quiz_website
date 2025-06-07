@@ -17,6 +17,9 @@ public class Quiz {
     private String description;
 
     private String imageUrl;
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<QuizResult> quizResults = new ArrayList<>();
+
     
 
     @ManyToOne
