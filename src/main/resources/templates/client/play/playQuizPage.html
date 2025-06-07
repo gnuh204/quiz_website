@@ -403,8 +403,8 @@
                 <div class="quiz-answer-item" th:each="choice : ${question.choices}">
                     <button type="submit" 
                             class="quiz-answer-button animate__animated animate__fadeInUp"
-                            name="isCorrect"
-                            th:value="${choice.isCorrect}"
+                            name="choiceId" 
+                            th:value="${choice.choiceId}"
                             th:text="${choice.choiceText}">
                     </button>
                 </div>

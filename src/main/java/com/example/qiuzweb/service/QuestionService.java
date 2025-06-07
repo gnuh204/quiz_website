@@ -62,5 +62,12 @@ public class QuestionService {
     public void deleteById(Long id) {
         questionRepository.deleteById(id);
     }
+    public Question getQuestionByIndex(Long quizId, int index) {
+        List<Question> questions = getQuestionsByQuizId(quizId);
+        if (index < 0 || index >= questions.size()) {
+            throw new IndexOutOfBoundsException("Index out of bounds for questions list");
+        }
+        return questions.get(index);
+    }
 
 }

@@ -7,10 +7,12 @@ import com.example.qiuzweb.domain.Question;
 import com.example.qiuzweb.domain.Quiz;
 import com.example.qiuzweb.domain.QuizComment;
 import com.example.qiuzweb.domain.QuizRating;
+import com.example.qiuzweb.domain.QuizResult;
 import com.example.qiuzweb.domain.User;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.*;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.security.core.Authentication;
 
@@ -26,6 +28,7 @@ import com.example.qiuzweb.service.CategoryService;
 import com.example.qiuzweb.service.QuestionService;
 import com.example.qiuzweb.service.QuizCommentService;
 import com.example.qiuzweb.service.QuizRatingServiceImpl;
+import com.example.qiuzweb.service.QuizResultService;
 import com.example.qiuzweb.service.QuizService;
 
 
@@ -37,10 +40,14 @@ public class QuizController {
     private final QuestionService questionService;
     private final QuizCommentService commentService;
     private final QuizRatingServiceImpl ratingService;
+    private final QuizResultService quizResultService;
+  
 
     public QuizController(QuizService quizService, CategoryService categoryService,
             QuestionService questionService, QuizCommentService questionCommentService,
-            QuizRatingServiceImpl ratingService) {
+            QuizRatingServiceImpl ratingService, QuizResultService quizResultService,
+            QuizRatingServiceImpl ratedQuizzes) {
+        this.quizResultService = quizResultService;
         this.ratingService = ratingService;
         this.commentService = questionCommentService;
         this.questionService = questionService;
@@ -49,9 +56,23 @@ public class QuizController {
     }
 
     @GetMapping("/InforFragment")
-    public String resetpassword() {
-        return "client/inforFragment";
+    public String Showuser(@ModelAttribute("user") User currentUser, Model model) {
+        List<QuizResult> completedQuizzes = quizResultService.getQuizResultsByUserId(currentUser.getUserId());
+        List<QuizRating> ratedQuizzes = ratingService.getRatingsByUserId(currentUser.getUserId());
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    for (QuizResult quizResult : completedQuizzes) {
+        if (quizResult.getTakenAt() != null) {
+            String formattedDate = quizResult.getTakenAt().format(formatter);
+            quizResult.setFormattedTakenAt(formattedDate);
+        } else {
+            quizResult.setFormattedTakenAt("Chưa có thời gian");
+        }
     }
+     model.addAttribute("ratedQuizzes", ratedQuizzes);
+    model.addAttribute("completedQuizzes", completedQuizzes);
+    return "client/inforFragment";
+}
     // Tao Quiz
     @GetMapping("/CreateQuiz")
     public String CrteateQuiz(Model model) {

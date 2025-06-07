@@ -1,7 +1,5 @@
 package com.example.qiuzweb.controller.client;
 
-import java.util.Locale.Category;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;

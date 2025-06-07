@@ -19,6 +19,16 @@ public class QuizResult {
     private Integer totalQuestions;
     private Integer correctAnswers;
     private LocalDateTime takenAt;
+     @Transient
+    private String formattedTakenAt;
+
+    public String getFormattedTakenAt() {
+        return formattedTakenAt;
+    }
+
+    public void setFormattedTakenAt(String formattedTakenAt) {
+        this.formattedTakenAt = formattedTakenAt;
+    }
     public Long getResultId() {
         return resultId;
     }

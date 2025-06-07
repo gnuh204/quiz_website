@@ -14,6 +14,10 @@ public class Choice {
 
     private String choiceText;
     private Boolean isCorrect;
+    public boolean isCorrect() {
+    return Boolean.TRUE.equals(isCorrect);
+}
+
     public Long getChoiceId() {
         return choiceId;
     }

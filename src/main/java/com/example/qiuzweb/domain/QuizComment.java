@@ -17,6 +17,7 @@ public class QuizComment {
     private User user;
 
     private String comment;
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
     public Long getCommentId() {
         return commentId;

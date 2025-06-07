@@ -21,6 +21,24 @@ public class UserAnswer {
 
     @ManyToOne @JoinColumn(name = "choice_id")
     private Choice choice;
+    private String correctChoiceText;
+
+    public String getCorrectChoiceText() {
+        return correctChoiceText;
+    }
+
+    public void setCorrectChoiceText(String correctChoiceText) {
+        this.correctChoiceText = correctChoiceText;
+    }
+    public UserAnswer() {
+    }
+    public UserAnswer( User user, Quiz quiz, Question question, Choice choice, LocalDateTime answeredAt) {
+        this.user = user;
+        this.quiz = quiz;
+        this.question = question;
+        this.choice = choice;
+        this.answeredAt = answeredAt;
+    }
 
     private LocalDateTime answeredAt;
 

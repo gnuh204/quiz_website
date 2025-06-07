@@ -1,5 +1,6 @@
 package com.example.qiuzweb.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +31,9 @@ public class QuizRatingServiceImpl implements QuizRatingService {
         rating.setRating(ratingValue);
         ratingRepository.save(rating);
     }
+
+   public List<QuizRating> getRatingsByUserId(Long userId) {
+        return ratingRepository.findByUserUserId(userId);
+    }
+  
 }

@@ -66,7 +66,20 @@
     <div class="score" th:text="'Điểm của bạn: ' + ${finalScore} + ' / ' + ${totalQuestions}">
         Điểm của bạn: 5 / 10
     </div>
-    <a th:href="@{/quizzes}" class="btn">Quay lại danh sách Quiz</a>
+
+    <!-- Bắt đầu hiển thị kết quả chi tiết -->
+    <div class="detailed-results">
+        <h2>Chi tiết câu trả lời:</h2>
+        <div th:each="answer : ${userAnswers}" class="question-result">
+            <div class="question-text" th:text="'Câu hỏi: ' + ${answer.question.questionText}"></div>
+            <div class="user-choice" th:text="'Bạn chọn: ' + ${answer.choice.choiceText}"></div>
+            <div class="correct-answer" th:text="'Đáp án đúng: ' + ${answer.correctChoiceText}"></div>
+            <div class="status" th:text="${answer.choice.isCorrect} ? '✅ Đúng' : '❌ Sai'"></div>
+            <hr/>
+        </div>
+    </div>
+
+    <a th:href="@{/}" class="btn">Quay lại danh sách Quiz</a>
 </div>
 
 </body>
