@@ -3,6 +3,8 @@ package com.example.qiuzweb.domain;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,12 +18,13 @@ public class User {
 
     private String username;
     private String passwordHash;
-    private String fullName;
+
     private String email;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
@@ -49,14 +52,6 @@ public class User {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getEmail() {

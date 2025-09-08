@@ -3,8 +3,9 @@ package com.example.qiuzweb.domain;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Max;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+
 
 @Entity
 @Table(name = "quiz_ratings")

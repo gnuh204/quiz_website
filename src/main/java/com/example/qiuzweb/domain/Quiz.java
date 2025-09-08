@@ -13,9 +13,19 @@ public class Quiz {
     private String title;
     private String description;
 
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "created_by")
     private User createdBy;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     @ManyToOne
     @JoinColumn(name = "category_id")

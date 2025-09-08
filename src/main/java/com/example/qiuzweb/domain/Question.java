@@ -13,6 +13,8 @@ public class Question {
     private Quiz quiz;
 
     private String questionText;
+    private String imageUrl;
+
 
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
@@ -49,6 +51,14 @@ public class Question {
 
     public void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     

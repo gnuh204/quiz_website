@@ -9,6 +9,8 @@ public class Category {
     private Long categoryId;
 
     private String name;
+    
+    private String imageUrl; 
 
     public Long getCategoryId() {
         return categoryId;
@@ -24,6 +26,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
     
 
